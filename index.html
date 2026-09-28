@@ -3,99 +3,101 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>BarberFlow — Studio Appointment Desk</title>
+    <title>BarberFlow | Executive Dashboard</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-inner">
-            <div class="brand-badge">EST. 2026</div>
+    <!-- Top Minimalist Bar -->
+    <header class="top-nav">
+        <div class="nav-brand">
+            <span class="logo-icon">✂</span>
             <h1>BarberFlow</h1>
-            <p class="app-tagline">Craft Grooming & Client Session Management</p>
-            <div class="app-count">
-                <span class="count-pill">3 Appointments</span>
-                <span class="count-separator">•</span>
-                <span class="count-highlight">2 In Progress</span>
-            </div>
+        </div>
+        <div class="nav-stats">
+            <span>Daily Overview:</span>
+            <strong>3 Bookings (2 Upcoming)</strong>
         </div>
     </header>
 
-    <main class="container">
-        <!-- Add Panel -->
-        <section class="panel panel-form">
-            <header class="panel-header">
-                <h2>New Client Entry</h2>
-                <span class="panel-subtitle">Register haircut or beard session</span>
-            </header>
+    <!-- Main Dashboard Layout -->
+    <main class="dashboard-workspace">
+        
+        <!-- Left Sidebar: Action Area -->
+        <section class="action-sidebar">
+            <div class="sidebar-header">
+                <h2>New Booking</h2>
+                <p>Enter client details below</p>
+            </div>
             
-            <form class="item-form">
-                <label>
-                    <span class="label-text">Client Full Name</span>
-                    <input type="text" name="title" placeholder="e.g. Andrew Smith" required />
-                </label>
+            <form class="booking-form">
+                <div class="input-group">
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" name="clientName" placeholder="e.g. Andrew Smith" required />
+                </div>
 
-                <label>
-                    <span class="label-text">Requested Service</span>
-                    <select name="tag">
-                        <option value="haircut">Signature Haircut</option>
-                        <option value="beard">Hot Towel Beard Trim</option>
-                        <option value="haircut-beard">Complete Grooming Package</option>
-                        <option value="wash">Clarifying Hair Wash</option>
+                <div class="input-group">
+                    <label for="serviceType">Service Category</label>
+                    <select id="serviceType" name="serviceType">
+                        <option value="haircut">Executive Haircut</option>
+                        <option value="beard">Luxury Beard Trim</option>
+                        <option value="combo">Haircut & Hot Towel</option>
+                        <option value="wash">Wash & Style</option>
                     </select>
-                </label>
+                </div>
 
-                <button type="submit">
-                    <span>Reserve Session</span>
-                    <span class="btn-arrow">→</span>
-                </button>
+                <button type="submit" class="btn-submit">Confirm Booking</button>
             </form>
         </section>
 
-        <!-- List Panel -->
-        <section class="panel panel-list">
-            <header class="panel-header">
-                <h2>Today's Sessions</h2>
-                <span class="panel-subtitle">Scheduled appointments queue</span>
+        <!-- Right Area: Tickets Board -->
+        <section class="appointments-board">
+            <header class="board-header">
+                <h2>Today's Queue</h2>
             </header>
 
-            <!-- When the list is empty: <p class="empty">No appointments scheduled for today.</p> -->
-            <ul class="item-list">
-                <li class="item-card">
-                    <div class="card-details">
+            <ul class="ticket-grid">
+                <!-- Active Ticket 1 -->
+                <li class="ticket active-ticket">
+                    <div class="ticket-time">10:00 AM</div>
+                    <div class="ticket-info">
                         <h3>Andrew Smith</h3>
-                        <span class="badge badge-haircut-beard">Complete Package</span>
+                        <span class="tag tag-combo">Haircut & Hot Towel</span>
                     </div>
-                    <div class="card-meta">
-                        <span class="status status-active">Active</span>
+                    <div class="ticket-action">
+                        <span class="state-indicator">Pending</span>
                     </div>
                 </li>
 
-                <!-- Finished Card -->
-                <li class="item-card done">
-                    <div class="card-details">
+                <!-- Completed Ticket (Done) -->
+                <li class="ticket completed-ticket">
+                    <div class="ticket-time">11:30 AM</div>
+                    <div class="ticket-info">
                         <h3>Michael Johnson</h3>
-                        <span class="badge badge-haircut">Signature Haircut</span>
+                        <span class="tag tag-haircut">Executive Haircut</span>
                     </div>
-                    <div class="card-meta">
-                        <span class="status status-done">Completed</span>
+                    <div class="ticket-action">
+                        <span class="state-indicator">Finished</span>
                     </div>
                 </li>
 
-                <li class="item-card">
-                    <div class="card-details">
+                <!-- Active Ticket 2 -->
+                <li class="ticket active-ticket">
+                    <div class="ticket-time">02:15 PM</div>
+                    <div class="ticket-info">
                         <h3>Christian Davis</h3>
-                        <span class="badge badge-beard">Beard Trim</span>
+                        <span class="tag tag-beard">Luxury Beard Trim</span>
                     </div>
-                    <div class="card-meta">
-                        <span class="status status-active">Active</span>
+                    <div class="ticket-action">
+                        <span class="state-indicator">Pending</span>
                     </div>
                 </li>
             </ul>
         </section>
+
     </main>
 
-    <footer class="app-footer">
-        <p>BarberFlow Management System • Web Technologies Project • Stage 1</p>
+    <footer class="system-footer">
+        <p>BarberFlow System © 2026 | Web Technologies Project</p>
     </footer>
 </body>
 </html>

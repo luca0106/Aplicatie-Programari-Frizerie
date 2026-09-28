@@ -1,367 +1,322 @@
-/* 4.1 Box model & CSS Variables */
+/* --- Base Reset & Variables --- */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-    /* Base Neutral Palette */
-    --bg: #f5f4f0;
-    --card: #ffffff;
-    --card-hover: #faf9f6;
-    --text: #1a1c1e;
-    --muted: #6e747e;
-    --border: #e3e0d8;
-    --border-light: #ece9e2;
+    /* Light Theme Palette (Minimalist High-Contrast) */
+    --surface-bg: #f8f9fa;
+    --surface-board: #ffffff;
+    --surface-sidebar: #121212;
     
-    /* Brand Accent (Warm Artisan Amber / Bronze) */
-    --accent: #b47b2b;
-    --accent-dark: #93601c;
-    --accent-soft: #fbf4ea;
-    --accent-glow: rgba(180, 123, 43, 0.2);
-
-    /* Category Badges */
-    --badge-haircut-bg: #e8f0fe;
-    --badge-haircut-text: #1967d2;
-    --badge-beard-bg: #fef3e6;
-    --badge-beard-text: #b86200;
-    --badge-combo-bg: #e6f4ea;
-    --badge-combo-text: #137333;
-
-    /* Shadows & Radii */
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --text-inverse: #ffffff;
+    --text-inverse-muted: #a0a0a0;
+    
+    --border-color: #e9ecef;
+    --accent-gold: #d4af37; /* Luxury Gold Accent */
+    --accent-gold-hover: #b5952f;
+    
+    /* Tag Colors */
+    --tag-haircut: #e0f2fe;
+    --tag-haircut-txt: #0284c7;
+    --tag-beard: #fef3c7;
+    --tag-beard-txt: #d97706;
+    --tag-combo: #dcfce7;
+    --tag-combo-txt: #16a34a;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--surface-bg);
+    color: var(--text-main);
+    line-height: 1.6;
 }
 
-/* 4.2 Header */
-.app-header {
-    background: linear-gradient(180deg, #181b20 0%, #111317 100%);
-    color: #ffffff;
-    border-bottom: 2px solid var(--accent);
-    padding: 44px 20px 38px;
-    text-align: center;
-}
-
-.header-inner {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.brand-badge {
-    display: inline-block;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    font-weight: 700;
-    color: var(--accent);
-    background-color: rgba(180, 123, 43, 0.12);
-    border: 1px solid rgba(180, 123, 43, 0.35);
-    padding: 3px 10px;
-    border-radius: 999px;
-    margin-bottom: 12px;
-}
-
-.app-header h1 {
-    margin: 0 0 6px 0;
-    font-size: 2.2rem;
-    letter-spacing: -0.02em;
-    font-weight: 800;
-}
-
-.app-tagline {
-    margin: 0 0 16px 0;
-    color: #9da4b0;
-    font-size: 0.95rem;
-}
-
-.app-count {
-    display: inline-flex;
+/* --- Top Navigation --- */
+.top-nav {
+    background-color: var(--surface-board);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 6px 14px;
-    border-radius: 999px;
 }
 
-.count-separator {
-    color: var(--accent);
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.count-highlight {
-    color: #f1c27d;
+.logo-icon {
+    font-size: 1.5rem;
 }
 
-/* 4.3 Container (Grid Layout) */
-.container {
-    max-width: 1050px;
-    margin: 36px auto;
-    padding: 0 20px;
+.nav-brand h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.nav-stats {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.nav-stats strong {
+    color: var(--text-main);
+    margin-left: 8px;
+    background-color: var(--border-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* --- Main Dashboard Layout (CSS Grid) --- */
+.dashboard-workspace {
+    max-width: 1400px;
+    margin: 32px auto;
+    padding: 0 32px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 28px;
+    /* This creates a 300px fixed sidebar and a fluid right area */
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
     align-items: start;
 }
 
-/* 4.4 Panels */
-.panel {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-    box-shadow: var(--shadow-sm);
+/* --- Left Sidebar (Form Area) --- */
+.action-sidebar {
+    background-color: var(--surface-sidebar);
+    color: var(--text-inverse);
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.panel-header {
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 16px;
-    margin-bottom: 22px;
+.sidebar-header {
+    margin-bottom: 24px;
 }
 
-.panel-header h2 {
-    margin: 0 0 4px 0;
-    font-size: 1.25rem;
+.sidebar-header h2 {
+    font-size: 1.4rem;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    margin-bottom: 4px;
 }
 
-.panel-subtitle {
-    font-size: 0.82rem;
-    color: var(--muted);
+.sidebar-header p {
+    color: var(--text-inverse-muted);
+    font-size: 0.85rem;
 }
 
-/* 4.5 Form (Flexbox Layout) */
-.item-form {
+.booking-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.item-form label {
+.input-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.label-text {
-    font-size: 0.78rem;
-    font-weight: 700;
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-inverse-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--muted);
+    letter-spacing: 0.5px;
 }
 
-.item-form input,
-.item-form select {
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+.input-group input,
+.input-group select {
+    padding: 12px;
+    border: 1px solid #333;
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 8px;
     font-family: inherit;
     font-size: 0.95rem;
-    background-color: var(--card);
-    color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s;
 }
 
-.item-form input:hover,
-.item-form select:hover {
-    border-color: var(--accent);
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--accent-gold);
 }
 
-.item-form button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    background-color: var(--accent);
-    color: #ffffff;
+.btn-submit {
+    margin-top: 10px;
+    background-color: var(--accent-gold);
+    color: #000;
     border: none;
-    padding: 13px 20px;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 0.95rem;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 2px 8px var(--accent-glow);
-    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.item-form button:hover {
-    background-color: var(--accent-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px var(--accent-glow);
+.btn-submit:hover {
+    background-color: var(--accent-gold-hover);
+    transform: translateY(-2px);
 }
 
-.btn-arrow {
-    font-size: 1.1rem;
-    transition: transform 0.2s;
+/* --- Right Area (Appointments Board) --- */
+.board-header {
+    margin-bottom: 24px;
 }
 
-.item-form button:hover .btn-arrow {
-    transform: translateX(3px);
+.board-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
-/* 4.6 List and Cards (Flexbox Layout) */
-.item-list {
+/* Ticket Grid inside the right area */
+.ticket-grid {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    display: grid;
+    /* Responsive auto-fit grid for cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Ticket (Card) Design */
+.ticket {
+    background-color: var(--surface-board);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    border-left: 4px solid var(--accent-gold);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.item-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background-color: var(--card);
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+.ticket:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
 }
 
-.item-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    background-color: var(--card-hover);
-    box-shadow: var(--shadow-md);
+.ticket-time {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
 }
 
-.card-details h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.05rem;
-    font-weight: 600;
+.ticket-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
 }
 
-/* 4.7 Badges */
-.badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 999px;
+.tag {
     font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag-haircut { background-color: var(--tag-haircut); color: var(--tag-haircut-txt); }
+.tag-beard { background-color: var(--tag-beard); color: var(--tag-beard-txt); }
+.tag-combo { background-color: var(--tag-combo); color: var(--tag-combo-txt); }
+
+.ticket-action {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.state-indicator {
+    font-size: 0.85rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    color: var(--text-main);
 }
 
-.badge-haircut {
-    background-color: var(--badge-haircut-bg);
-    color: var(--badge-haircut-text);
+/* --- Completed Ticket State --- */
+.completed-ticket {
+    border-left-color: var(--text-muted);
+    opacity: 0.6;
+    background-color: transparent;
 }
 
-.badge-beard {
-    background-color: var(--badge-beard-bg);
-    color: var(--badge-beard-text);
-}
-
-.badge-haircut-beard {
-    background-color: var(--badge-combo-bg);
-    color: var(--badge-combo-text);
-}
-
-/* Status Labels */
-.status {
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 999px;
-}
-
-.status-active {
-    color: var(--accent-dark);
-    background-color: var(--accent-soft);
-}
-
-/* 4.8 Done Item State */
-.item-card.done {
-    opacity: 0.65;
-    background-color: var(--bg);
-}
-
-.item-card.done .card-details h3 {
+.completed-ticket .ticket-info h3 {
     text-decoration: line-through;
-    color: var(--muted);
+    color: var(--text-muted);
 }
 
-.status-done {
-    color: var(--muted);
-    background-color: var(--border-light);
+.completed-ticket .state-indicator {
+    color: var(--text-muted);
 }
 
-/* Empty State Placeholder */
-.empty {
+/* --- Footer --- */
+.system-footer {
     text-align: center;
-    color: var(--muted);
-    padding: 24px;
-    font-style: italic;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
 
-/* Footer */
-.app-footer {
-    text-align: center;
-    padding: 32px 20px;
-    color: var(--muted);
-    font-size: 0.82rem;
-}
-
-/* 4.9 Responsive Layout (Media Query) */
-@media (max-width: 700px) {
-    .container {
-        grid-template-columns: 1fr;
-        margin: 20px auto;
-        gap: 20px;
-    }
-}
-
-/* Interactive States: Accessible Focus */
+/* --- Keyboard Accessibility --- */
 :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 3px solid var(--accent-gold);
     outline-offset: 3px;
 }
 
-/* 5. Dark Mode Overrides (Only Variable Tweaks) */
+/* --- Mobile Responsiveness --- */
+@media (max-width: 800px) {
+    .top-nav {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+    .dashboard-workspace {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+    }
+    .action-sidebar {
+        border-radius: 12px;
+    }
+}
+
+/* --- Dark Mode (OS Preference) --- */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #0e1013;
-        --card: #16181d;
-        --card-hover: #1c1f26;
-        --text: #e6edf3;
-        --muted: #8b949e;
-        --border: #2b303a;
-        --border-light: #22262e;
+        --surface-bg: #0a0a0a;
+        --surface-board: #121212;
+        --surface-sidebar: #1a1a1a;
         
-        --accent: #d89843;
-        --accent-dark: #b87a28;
-        --accent-soft: rgba(216, 152, 67, 0.15);
-        --accent-glow: rgba(216, 152, 67, 0.25);
+        --text-main: #f8f9fa;
+        --text-muted: #8b9298;
+        --border-color: #2a2d30;
 
-        --badge-haircut-bg: rgba(66, 133, 244, 0.15);
-        --badge-haircut-text: #8ab4f8;
-        --badge-beard-bg: rgba(242, 153, 74, 0.15);
-        --badge-beard-text: #f6ad55;
-        --badge-combo-bg: rgba(52, 168, 83, 0.15);
-        --badge-combo-text: #81c995;
+        --tag-haircut: rgba(2, 132, 199, 0.2);
+        --tag-haircut-txt: #38bdf8;
+        --tag-beard: rgba(217, 119, 6, 0.2);
+        --tag-beard-txt: #fbbf24;
+        --tag-combo: rgba(22, 163, 74, 0.2);
+        --tag-combo-txt: #4ade80;
     }
-
-    .app-header {
-        background: #090a0d;
-        border-bottom-color: var(--accent);
+    
+    .nav-stats strong {
+        background-color: #2a2d30;
     }
-
-    .item-card.done {
-        background-color: rgba(255, 255, 255, 0.02);
+    
+    .input-group input,
+    .input-group select {
+        background-color: #000;
+        border-color: #333;
+    }
+    
+    .completed-ticket {
+        background-color: #0f0f0f;
     }
 }
