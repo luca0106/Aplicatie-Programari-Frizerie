@@ -3,69 +3,99 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>BarberFlow - Mockup</title>
+    <title>BarberFlow — Studio Appointment Desk</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header class="app-header">
-        <h1>BarberFlow</h1>
-        <p>Manage your clients' appointments easily and quickly.</p>
-        <p class="app-count">3 appointments, 2 active</p>
+        <div class="header-inner">
+            <div class="brand-badge">EST. 2026</div>
+            <h1>BarberFlow</h1>
+            <p class="app-tagline">Craft Grooming & Client Session Management</p>
+            <div class="app-count">
+                <span class="count-pill">3 Appointments</span>
+                <span class="count-separator">•</span>
+                <span class="count-highlight">2 In Progress</span>
+            </div>
+        </div>
     </header>
 
     <main class="container">
-        <section class="panel">
-            <h2>Add Appointment</h2>
+        <!-- Add Panel -->
+        <section class="panel panel-form">
+            <header class="panel-header">
+                <h2>New Client Entry</h2>
+                <span class="panel-subtitle">Register haircut or beard session</span>
+            </header>
+            
             <form class="item-form">
-                <label>Client Name
-                    <input type="text" name="title" placeholder="Ex: Andrew Smith" />
+                <label>
+                    <span class="label-text">Client Full Name</span>
+                    <input type="text" name="title" placeholder="e.g. Andrew Smith" required />
                 </label>
-                <label>Desired Service
+
+                <label>
+                    <span class="label-text">Requested Service</span>
                     <select name="tag">
-                        <option value="haircut">Haircut</option>
-                        <option value="beard">Beard</option>
-                        <option value="haircut-beard">Haircut + Beard</option>
-                        <option value="wash">Wash</option>
+                        <option value="haircut">Signature Haircut</option>
+                        <option value="beard">Hot Towel Beard Trim</option>
+                        <option value="haircut-beard">Complete Grooming Package</option>
+                        <option value="wash">Clarifying Hair Wash</option>
                     </select>
                 </label>
-                <button type="submit">Add</button>
+
+                <button type="submit">
+                    <span>Reserve Session</span>
+                    <span class="btn-arrow">→</span>
+                </button>
             </form>
         </section>
 
-        <section class="panel">
-            <h2>Today's Appointments</h2>
-            <!-- When the list is empty: <p class="empty">No appointments yet.</p> -->
+        <!-- List Panel -->
+        <section class="panel panel-list">
+            <header class="panel-header">
+                <h2>Today's Sessions</h2>
+                <span class="panel-subtitle">Scheduled appointments queue</span>
+            </header>
+
+            <!-- When the list is empty: <p class="empty">No appointments scheduled for today.</p> -->
             <ul class="item-list">
-                
                 <li class="item-card">
-                    <div>
+                    <div class="card-details">
                         <h3>Andrew Smith</h3>
-                        <span class="badge badge-haircut-beard">Haircut + Beard</span>
+                        <span class="badge badge-haircut-beard">Complete Package</span>
                     </div>
-                    <span class="status">Active</span>
+                    <div class="card-meta">
+                        <span class="status status-active">Active</span>
+                    </div>
                 </li>
 
-                <!-- Done card -->
+                <!-- Finished Card -->
                 <li class="item-card done">
-                    <div>
+                    <div class="card-details">
                         <h3>Michael Johnson</h3>
-                        <span class="badge badge-haircut">Haircut</span>
+                        <span class="badge badge-haircut">Signature Haircut</span>
                     </div>
-                    <span class="status">Done</span>
+                    <div class="card-meta">
+                        <span class="status status-done">Completed</span>
+                    </div>
                 </li>
 
                 <li class="item-card">
-                    <div>
+                    <div class="card-details">
                         <h3>Christian Davis</h3>
-                        <span class="badge badge-beard">Beard</span>
+                        <span class="badge badge-beard">Beard Trim</span>
                     </div>
-                    <span class="status">Active</span>
+                    <div class="card-meta">
+                        <span class="status status-active">Active</span>
+                    </div>
                 </li>
-
             </ul>
         </section>
     </main>
 
-    <footer class="app-footer">Web Technologies Project - Stage 1</footer>
+    <footer class="app-footer">
+        <p>BarberFlow Management System • Web Technologies Project • Stage 1</p>
+    </footer>
 </body>
 </html>

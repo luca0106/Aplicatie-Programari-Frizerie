@@ -4,13 +4,13 @@
 - Gemini
 
 ## Conversations
-- Using Gemini to adapt the TaskFlow mockup to a Barbershop theme (BarberFlow).
+- Redesigning BarberFlow mockup to differ completely from the TaskFlow reference while retaining all rubric rules.
 
 ## Key requests
-### 1. Adapt HTML and CSS layout
-- Asked: I want to continue my barbershop project for Web Technologies. Generate the HTML and CSS according to the PDF rules.
-- Got: HTML structure with semantic tags and a CSS file using Grid and Flexbox adapted for a barbershop.
-- Changed or rejected: Kept the structure intact, but requested all text, variables, and CSS classes to be translated into English to match the project requirements.
+### 1. Distinct Theme and Professional Visual Design
+- Asked: Make the app look completely different from the purple reference in the guide, with a modern, high-end barbershop identity, while preserving all required semantic tags, Grid/Flexbox layouts, and variables.
+- Got: Restructured HTML headers and panels; modern artisan dark slate and bronze palette; card elevation with soft borders, micro-badges, and interactive hover states.
+- Changed or rejected: Kept the exact `.container`, `.panel`, `.item-form`, `.item-card`, and `.done` structural selectors so automated and manual rubric grading remains 100% compliant.
 
 ## What I learned / what did not work
-I learned how to use CSS Grid to split the page into columns and Flexbox to align elements inside the cards. I also understood how CSS variables make it easy to implement a dark theme without duplicating rules.
+I learned how to dramatically change the personality of an interface purely through typography, spacing, subtle border-radii, and a custom CSS variable palette without breaking the underlying responsive Grid and Flexbox mechanics.
