@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BarberFlow - Mockup</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="app-header">
+        <h1>BarberFlow</h1>
+        <p>Manage your clients' appointments easily and quickly.</p>
+        <p class="app-count">3 appointments, 2 active</p>
+    </header>
+
+    <main class="container">
+        <section class="panel">
+            <h2>Add Appointment</h2>
+            <form class="item-form">
+                <label>Client Name
+                    <input type="text" name="title" placeholder="Ex: Andrew Smith" />
+                </label>
+                <label>Desired Service
+                    <select name="tag">
+                        <option value="haircut">Haircut</option>
+                        <option value="beard">Beard</option>
+                        <option value="haircut-beard">Haircut + Beard</option>
+                        <option value="wash">Wash</option>
+                    </select>
+                </label>
+                <button type="submit">Add</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Today's Appointments</h2>
+            <!-- When the list is empty: <p class="empty">No appointments yet.</p> -->
+            <ul class="item-list">
+                
+                <li class="item-card">
+                    <div>
+                        <h3>Andrew Smith</h3>
+                        <span class="badge badge-haircut-beard">Haircut + Beard</span>
+                    </div>
+                    <span class="status">Active</span>
+                </li>
+
+                <!-- Done card -->
+                <li class="item-card done">
+                    <div>
+                        <h3>Michael Johnson</h3>
+                        <span class="badge badge-haircut">Haircut</span>
+                    </div>
+                    <span class="status">Done</span>
+                </li>
+
+                <li class="item-card">
+                    <div>
+                        <h3>Christian Davis</h3>
+                        <span class="badge badge-beard">Beard</span>
+                    </div>
+                    <span class="status">Active</span>
+                </li>
+
+            </ul>
+        </section>
+    </main>
+
+    <footer class="app-footer">Web Technologies Project - Stage 1</footer>
+</body>
+</html>

@@ -1,20 +1,20 @@
 # BarberFlow
-O aplicație web pentru gestionarea programărilor la o frizerie.
-Permite organizarea clienților pe categorii de servicii și monitorizarea statusului.
+A web application for managing barbershop appointments.
+It allows organizing clients by service categories and tracking their status.
 
 ## Data model
 | Field | Type | Notes |
 | :--- | :--- | :--- |
-| Nume Client | text | required, max 100 chars |
-| Finalizată | boolean | toggled from the list, default false |
-| Serviciu | fixed values | Tuns, Barbă, Tuns + Barbă, Spălat |
-| Frizer (Categorie) | relation | Alex, Mihai, Andrei |
+| Client Name | text | required, max 100 chars |
+| Done | boolean | toggled from the list, default false |
+| Service | fixed values | Haircut, Beard, Haircut + Beard, Wash |
+| Barber (Category) | relation | Alex, Michael, Andrew |
 | Creator | relation | the owner of the item (from week 11) |
 
 Sample data used across all stages:
-1. Andrei Popescu, active, Tuns + Barbă
-2. Mihai Ionescu, done, Tuns
-3. Cristian Radu, active, Barbă
+1. Andrew Smith, active, Haircut + Beard
+2. Michael Johnson, done, Haircut
+3. Christian Davis, active, Beard
 
 ## AI usage
 | Tool | Used for |
