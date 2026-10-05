@@ -3,101 +3,131 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>BarberFlow | Executive Dashboard</title>
+    <title>BarberFlow | Advanced Booking System</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Top Minimalist Bar -->
-    <header class="top-nav">
-        <div class="nav-brand">
-            <span class="logo-icon">✂</span>
-            <h1>BarberFlow</h1>
-        </div>
-        <div class="nav-stats">
-            <span>Daily Overview:</span>
-            <strong>3 Bookings (2 Upcoming)</strong>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-logo">BarberFlow</div>
+            <div class="header-nav">
+                <button id="viewToggleBtn" class="btn-switch">Switch to Barber Dashboard</button>
+                <span class="nav-user" id="portalTitle">Client Portal</span>
+            </div>
         </div>
     </header>
 
-    <!-- Main Dashboard Layout -->
-    <main class="dashboard-workspace">
-        
-        <!-- Left Sidebar: Action Area -->
-        <section class="action-sidebar">
-            <div class="sidebar-header">
-                <h2>New Booking</h2>
-                <p>Enter client details below</p>
-            </div>
+    <!-- ================= VIEW 1: CLIENT PORTAL ================= -->
+    <main class="container" id="clientView">
+        <!-- Stânga: Listă de servicii detaliate -->
+        <section class="panel client-services-panel">
+            <h2>Available Services</h2>
+            <p class="panel-sub">Select your desired grooming session</p>
             
-            <form class="booking-form">
-                <div class="input-group">
-                    <label for="clientName">Client Name</label>
-                    <input type="text" id="clientName" name="clientName" placeholder="e.g. Andrew Smith" required />
-                </div>
+            <div class="service-cards-list" id="servicesListCatalog">
+                <!-- Generat dinamic -->
+            </div>
+        </section>
 
-                <div class="input-group">
-                    <label for="serviceType">Service Category</label>
-                    <select id="serviceType" name="serviceType">
-                        <option value="haircut">Executive Haircut</option>
-                        <option value="beard">Luxury Beard Trim</option>
-                        <option value="combo">Haircut & Hot Towel</option>
-                        <option value="wash">Wash & Style</option>
+        <!-- Dreapta: Formular de rezervare cu Dată, Oră, Specialist și Secțiune My Appointments -->
+        <section class="panel client-booking-panel">
+            <h2>Book Online</h2>
+            <p class="panel-sub">Choose date, time slot & specialist</p>
+
+            <form class="item-form" id="clientBookingForm">
+                <label>
+                    Your Full Name
+                    <input type="text" id="clientNameInput" placeholder="e.g. Alexandru Ion" required />
+                </label>
+
+                <label>
+                    Select Service (Dropdown)
+                    <select id="clientServiceSelect" required>
+                        <!-- Se populează din JS cu toate serviciile și duratele -->
                     </select>
-                </div>
+                </label>
 
-                <button type="submit" class="btn-submit">Confirm Booking</button>
+                <label>
+                    Choose Specialist
+                    <select id="barberSelect">
+                        <option value="Nicholas Andrei">Nicholas Andrei (Senior Barber)</option>
+                        <option value="Madalin Plesa">Madalin Plesa (Senior Barber)</option>
+                    </select>
+                </label>
+
+                <label>
+                    Appointment Date
+                    <input type="date" id="appointmentDate" required />
+                </label>
+
+                <label>
+                    Available Time Slot
+                    <select id="timeSlotSelect" required>
+                        <option value="">-- First select a service and date --</option>
+                    </select>
+                </label>
+
+                <button type="submit" class="btn-primary">Confirm Booking</button>
+            </form>
+
+            <!-- Secțiunea My Appointments pentru client -->
+            <div class="my-appointments-section" style="margin-top: 30px;">
+                <h3>My Appointments</h3>
+                <p class="panel-sub">Track your upcoming & past visits</p>
+                <ul class="item-list" id="clientAppointmentsList">
+                    <!-- Afișat dinamic -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= VIEW 2: BARBER DASHBOARD ================= -->
+    <main class="container hidden" id="barberView">
+        <section class="panel">
+            <h2>Reception Desk</h2>
+            <p class="panel-sub">Internal walk-in registration with overlap prevention</p>
+            
+            <form class="item-form" id="barberAddForm">
+                <label>
+                    Client Name
+                    <input type="text" id="barberClientName" placeholder="e.g. Andrew Smith" required />
+                </label>
+                <label>
+                    Assign Barber (Who performs it)
+                    <select id="barberAssignSelect">
+                        <option value="Nicholas Andrei">Nicholas Andrei</option>
+                        <option value="Madalin Plesa">Madalin Plesa</option>
+                    </select>
+                </label>
+                <label>
+                    Service Package
+                    <select id="barberServiceSelect">
+                        <!-- Populat din JS -->
+                    </select>
+                </label>
+                <label>
+                    Start Time
+                    <input type="time" id="barberStartTime" value="12:00" required />
+                </label>
+                <button type="submit" class="btn-primary">Register Walk-in Safely</button>
             </form>
         </section>
 
-        <!-- Right Area: Tickets Board -->
-        <section class="appointments-board">
-            <header class="board-header">
-                <h2>Today's Queue</h2>
-            </header>
+        <section class="panel">
+            <h2>Active Appointments Queue</h2>
+            <p class="panel-sub" id="queueCounter">Managing shop workflow</p>
 
-            <ul class="ticket-grid">
-                <!-- Active Ticket 1 -->
-                <li class="ticket active-ticket">
-                    <div class="ticket-time">10:00 AM</div>
-                    <div class="ticket-info">
-                        <h3>Andrew Smith</h3>
-                        <span class="tag tag-combo">Haircut & Hot Towel</span>
-                    </div>
-                    <div class="ticket-action">
-                        <span class="state-indicator">Pending</span>
-                    </div>
-                </li>
-
-                <!-- Completed Ticket (Done) -->
-                <li class="ticket completed-ticket">
-                    <div class="ticket-time">11:30 AM</div>
-                    <div class="ticket-info">
-                        <h3>Michael Johnson</h3>
-                        <span class="tag tag-haircut">Executive Haircut</span>
-                    </div>
-                    <div class="ticket-action">
-                        <span class="state-indicator">Finished</span>
-                    </div>
-                </li>
-
-                <!-- Active Ticket 2 -->
-                <li class="ticket active-ticket">
-                    <div class="ticket-time">02:15 PM</div>
-                    <div class="ticket-info">
-                        <h3>Christian Davis</h3>
-                        <span class="tag tag-beard">Luxury Beard Trim</span>
-                    </div>
-                    <div class="ticket-action">
-                        <span class="state-indicator">Pending</span>
-                    </div>
-                </li>
+            <ul class="item-list" id="appointmentList">
+                <!-- Generat dinamic prin JS -->
             </ul>
         </section>
-
     </main>
 
-    <footer class="system-footer">
-        <p>BarberFlow System © 2026</p>
+    <footer class="app-footer">
+        <p>BarberFlow Platform © 2026 — Single-Business Management System</p>
     </footer>
+
+    <script src="appointments.js"></script>
 </body>
 </html>

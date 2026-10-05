@@ -1,322 +1,231 @@
-/* --- Base Reset & Variables --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    /* Light Theme Palette (Minimalist High-Contrast) */
-    --surface-bg: #f8f9fa;
-    --surface-board: #ffffff;
-    --surface-sidebar: #121212;
+    --bg-main: #f9f9f9;
+    --panel-bg: #ffffff;
+    --text-main: #1c1c1c;
+    --text-muted: #666666;
+    --border-color: #e5e5e5;
     
-    --text-main: #212529;
-    --text-muted: #6c757d;
-    --text-inverse: #ffffff;
-    --text-inverse-muted: #a0a0a0;
+    --brand-blue: #0b1cde;
+    --brand-blue-hover: #0915ab;
     
-    --border-color: #e9ecef;
-    --accent-gold: #d4af37; /* Luxury Gold Accent */
-    --accent-gold-hover: #b5952f;
-    
-    /* Tag Colors */
-    --tag-haircut: #e0f2fe;
-    --tag-haircut-txt: #0284c7;
-    --tag-beard: #fef3c7;
-    --tag-beard-txt: #d97706;
-    --tag-combo: #dcfce7;
-    --tag-combo-txt: #16a34a;
+    --radius-pill: 50px;
+    --radius-card: 14px;
+    --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--surface-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-main);
     color: var(--text-main);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
-/* --- Top Navigation --- */
-.top-nav {
-    background-color: var(--surface-board);
+.app-header {
+    background-color: var(--panel-bg);
     border-bottom: 1px solid var(--border-color);
     padding: 16px 32px;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-brand {
+.brand-logo {
+    font-family: Georgia, serif;
+    color: var(--brand-blue);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.header-nav {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
 }
 
-.logo-icon {
-    font-size: 1.5rem;
+.btn-switch {
+    background-color: #f0f2f5;
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-.nav-brand h1 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
+.btn-switch:hover { background-color: #e4e6eb; }
 
-.nav-stats {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
+.nav-user { font-size: 0.9rem; font-weight: 600; }
 
-.nav-stats strong {
-    color: var(--text-main);
-    margin-left: 8px;
-    background-color: var(--border-color);
-    padding: 4px 12px;
-    border-radius: 20px;
-}
-
-/* --- Main Dashboard Layout (CSS Grid) --- */
-.dashboard-workspace {
-    max-width: 1400px;
+.container {
+    max-width: 1200px;
     margin: 32px auto;
-    padding: 0 32px;
+    padding: 0 20px;
     display: grid;
-    /* This creates a 300px fixed sidebar and a fluid right area */
-    grid-template-columns: 320px 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 28px;
     align-items: start;
 }
 
-/* --- Left Sidebar (Form Area) --- */
-.action-sidebar {
-    background-color: var(--surface-sidebar);
-    color: var(--text-inverse);
-    padding: 32px 24px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.hidden { display: none !important; }
+
+.panel {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 28px;
+    box-shadow: var(--shadow-soft);
 }
 
-.sidebar-header {
-    margin-bottom: 24px;
-}
-
-.sidebar-header h2 {
-    font-size: 1.4rem;
+.panel h2, .panel h3 {
+    font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 4px;
 }
 
-.sidebar-header p {
-    color: var(--text-inverse-muted);
+.panel-sub {
     font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
 }
 
-.booking-form {
+.service-cards-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
+    max-height: 550px;
+    overflow-y: auto;
+    padding-right: 4px;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.input-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-inverse-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.input-group input,
-.input-group select {
-    padding: 12px;
-    border: 1px solid #333;
-    background-color: #1e1e1e;
-    color: #fff;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-}
-
-.input-group input:focus,
-.input-group select:focus {
-    outline: none;
-    border-color: var(--accent-gold);
-}
-
-.btn-submit {
-    margin-top: 10px;
-    background-color: var(--accent-gold);
-    color: #000;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-.btn-submit:hover {
-    background-color: var(--accent-gold-hover);
-    transform: translateY(-2px);
-}
-
-/* --- Right Area (Appointments Board) --- */
-.board-header {
-    margin-bottom: 24px;
-}
-
-.board-header h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-/* Ticket Grid inside the right area */
-.ticket-grid {
-    list-style: none;
-    display: grid;
-    /* Responsive auto-fit grid for cards */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-/* Ticket (Card) Design */
-.ticket {
-    background-color: var(--surface-board);
+.service-card-item {
+    padding: 12px 16px;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.service-card-item h4 { font-size: 0.95rem; font-weight: 600; }
+.service-meta { font-size: 0.78rem; font-weight: 700; color: var(--brand-blue); }
+.service-desc { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+.item-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    border-left: 4px solid var(--accent-gold);
-    transition: transform 0.2s, box-shadow 0.2s;
+    gap: 14px;
 }
 
-.ticket:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-}
-
-.ticket-time {
-    font-size: 0.85rem;
+.item-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--text-muted);
-}
-
-.ticket-info h3 {
-    font-size: 1.15rem;
-    margin-bottom: 12px;
-}
-
-.tag {
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
-.tag-haircut { background-color: var(--tag-haircut); color: var(--tag-haircut-txt); }
-.tag-beard { background-color: var(--tag-beard); color: var(--tag-beard-txt); }
-.tag-combo { background-color: var(--tag-combo); color: var(--tag-combo-txt); }
-
-.ticket-action {
-    margin-top: auto;
-    border-top: 1px solid var(--border-color);
-    padding-top: 12px;
+.item-form input, .item-form select {
+    padding: 11px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-size: 0.9rem;
+    background-color: var(--bg-main);
 }
 
-.state-indicator {
-    font-size: 0.85rem;
+.item-form input:focus, .item-form select:focus {
+    outline: none;
+    border-color: var(--brand-blue);
+}
+
+.btn-primary {
+    margin-top: 4px;
+    background-color: var(--brand-blue);
+    color: white;
+    border: none;
+    padding: 13px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover { background-color: var(--brand-blue-hover); }
+
+.item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.item-card h3 { font-size: 0.95rem; font-weight: 600; }
+.item-card p { font-size: 0.78rem; color: var(--text-muted); }
+
+.card-actions { display: flex; gap: 6px; align-items: center; }
+
+.btn-action {
+    padding: 5px 8px;
+    font-size: 0.7rem;
     font-weight: 600;
-    color: var(--text-main);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    background: #f4f4f4;
 }
 
-/* --- Completed Ticket State --- */
-.completed-ticket {
-    border-left-color: var(--text-muted);
+.btn-delete { color: #d93838; background: #fff5f5; border-color: #ffd8d8; }
+
+.item-card.done {
     opacity: 0.6;
-    background-color: transparent;
+    background-color: #f5f5f5;
 }
 
-.completed-ticket .ticket-info h3 {
-    text-decoration: line-through;
-    color: var(--text-muted);
-}
+.item-card.done h3 { text-decoration: line-through; color: var(--text-muted); }
 
-.completed-ticket .state-indicator {
-    color: var(--text-muted);
-}
-
-/* --- Footer --- */
-.system-footer {
+.app-footer {
     text-align: center;
-    padding: 40px;
+    padding: 30px;
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
 }
 
-/* --- Keyboard Accessibility --- */
-:focus-visible {
-    outline: 3px solid var(--accent-gold);
-    outline-offset: 3px;
-}
+:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 2px; }
 
-/* --- Mobile Responsiveness --- */
 @media (max-width: 800px) {
-    .top-nav {
-        flex-direction: column;
-        gap: 12px;
-        padding: 16px;
-    }
-    .dashboard-workspace {
-        grid-template-columns: 1fr;
-        padding: 0 16px;
-    }
-    .action-sidebar {
-        border-radius: 12px;
-    }
+    .container { grid-template-columns: 1fr; }
 }
 
-/* --- Dark Mode (OS Preference) --- */
 @media (prefers-color-scheme: dark) {
     :root {
-        --surface-bg: #0a0a0a;
-        --surface-board: #121212;
-        --surface-sidebar: #1a1a1a;
-        
-        --text-main: #f8f9fa;
-        --text-muted: #8b9298;
-        --border-color: #2a2d30;
-
-        --tag-haircut: rgba(2, 132, 199, 0.2);
-        --tag-haircut-txt: #38bdf8;
-        --tag-beard: rgba(217, 119, 6, 0.2);
-        --tag-beard-txt: #fbbf24;
-        --tag-combo: rgba(22, 163, 74, 0.2);
-        --tag-combo-txt: #4ade80;
+        --bg-main: #121212;
+        --panel-bg: #1e1e1e;
+        --text-main: #f0f2f5;
+        --text-muted: #9aa0a6;
+        --border-color: #2d2d2d;
     }
-    
-    .nav-stats strong {
-        background-color: #2a2d30;
-    }
-    
-    .input-group input,
-    .input-group select {
-        background-color: #000;
-        border-color: #333;
-    }
-    
-    .completed-ticket {
-        background-color: #0f0f0f;
-    }
+    .service-card-item { background: #252525; }
+    .item-form input, .item-form select { background: #121212; color: #fff; }
+    .item-card { background: #252525; }
+    .btn-action { background: #333; color: #fff; border-color: #444; }
+    .btn-switch { background: #2d2d2d; color: #fff; border-color: #444; }
 }
