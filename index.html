@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- Floating Notification / Toast -->
+    <div id="toastNotification" class="toast-notification hidden" role="status" aria-live="polite"></div>
+
     <!-- Header -->
     <header class="app-header">
         <div class="header-inner">
@@ -107,6 +110,10 @@
                     </select>
                 </label>
                 <label>
+                    Appointment Date
+                    <input type="date" id="barberDate" required />
+                </label>
+                <label>
                     Start Time
                     <input type="time" id="barberStartTime" value="12:00" required />
                 </label>
@@ -116,6 +123,10 @@
         <section class="panel">
             <h2>Active Appointments Queue</h2>
             <p class="panel-sub" id="queueCounter">Managing shop workflow</p>
+
+            <div class="queue-search-wrap">
+                <input type="text" id="queueSearchInput" class="queue-search-input" placeholder="Search queue by client, service, or barber..." />
+            </div>
 
             <ul class="item-list" id="appointmentList">
                 <!-- Generat dinamic prin JS -->
