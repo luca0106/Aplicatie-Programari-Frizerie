@@ -1,3 +1,5 @@
+import AppointmentList from "./components/AppointmentList.jsx";
+
 const programari = [
   {
     id: 1,
@@ -50,11 +52,9 @@ export default function App() {
       <main className="container">
         <section className="panel">
           <h2>Programările din sistem</h2>
-          {/* Temporar: date brute; componentele apar în Etapa 4 */}
-          <pre>{JSON.stringify(programari, null, 2)}</pre>
+          <AppointmentList programari={programari} />
         </section>
       </main>
     </>
   );
 }
-

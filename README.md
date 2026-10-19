@@ -25,8 +25,20 @@ The application uses the following dataset (consistent across stages):
 
 ---
 
+## Stage 4: components
+The list is rendered from the data, through two components:
+- `AppointmentList` receives the whole array and renders one card per item (handling the empty list state).
+- `AppointmentCard` receives a single item through props and displays it.
+
+## Status
+- [x] Stage 3: Vite and React project
+- [x] Stage 4: components rendered from data
+- [ ] Stage 5: local state and events
+
+---
+
 ## Stage 3: Vite and React project
-The app now lives in `frontend/`, built with Vite. The data from stage 2 moved into the main component; the list is still printed raw (JSON format).
+The app now lives in `frontend/`, built with Vite.
 
 ## How to run
 ```bash
@@ -53,9 +65,9 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 
 | Tool Utilized | Application Area |
 | :--- | :--- |
-| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, and migrating project architecture to Vite + React in Stage 3. |
+| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, and component-based UI rendering with props and conditional states in Stage 4. |
 
-*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, and `ai-log/etapa-03.md` files.*
+*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, and `ai-log/etapa-04.md` files.*
 
 ---
 
@@ -64,15 +76,30 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 - [x] **Stage 1: Static UI Mockup**
 - [x] **Stage 2: JavaScript Data Logic & Interactive Interface**
 - [x] **Stage 3: Vite and React project**
-- [ ] Stage 4: Componente React și randare dinamică
+- [x] **Stage 4: components rendered from data**
+- [ ] Stage 5: local state and events
 
-### Stage 3 Verification Table
+### Stage 4 Verification Table
+
+| ID | Requirement | Where | How to check |
+| :--- | :--- | :--- | :--- |
+| **S4-R1** | 2+ components in src/components/ | `frontend/src/components/` | open folder |
+| **S4-R2** | card receives data through props | `frontend/src/components/AppointmentCard.jsx#L8-L32` | read code |
+| **S4-R3** | map + key={id}, no console warnings | `frontend/src/components/AppointmentList.jsx#L13-L17` | F12, Console |
+| **S4-R4** | message for empty list | `frontend/src/components/AppointmentList.jsx#L6-L9` | set array to `[]` in App.jsx |
+| **S4-R5** | state changes the card look | `frontend/src/components/AppointmentCard.jsx#L13` | toggle a `done` flag |
+| **S4-R6** | README Stage 4 section + AI log | `README.md`, `ai-log/etapa-04.md` | read files in repository |
+| **S4-R7** | commit "Stage 4: components rendered from data" pushed | Git commit history | `git log` |
+
+---
+
+### Stage 3 Verification Table (Historical Reference)
 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
 | **S3-R1** | npm run dev starts without errors | `frontend/package.json` | `cd frontend`, `npm install`, `npm run dev` |
-| **S3-R2** | app name and counter computed from data | `frontend/src/App.jsx#L37-L48` | edit data, save, check browser |
-| **S3-R3** | data from README, not from the example | `frontend/src/App.jsx#L1-L35` | compare with README dataset |
+| **S3-R2** | app name and counter computed from data | `frontend/src/App.jsx#L38-L49` | edit data, save, check browser |
+| **S3-R3** | data from README, not from the example | `frontend/src/App.jsx#L3-L37` | compare with README dataset |
 | **S3-R4** | stage 1 styles reused | `frontend/src/App.css` | check layout and styles in browser |
 | **S3-R5** | node_modules ignored, build passes | `frontend/.gitignore` | `cd frontend`, `npm run build` |
 | **S3-R6** | README Stage 3 section + AI log | `README.md`, `ai-log/etapa-03.md` | read files in repository |
