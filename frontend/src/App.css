@@ -9,32 +9,148 @@
     padding: 0;
 }
 
+/* --------------------------------------------------------------------------
+   Etapa 5: Theme Variables Architecture
+   1. Default :root: Light Theme (Clean Champagne & Ivory Luxury Studio)
+   2. System Dark Theme: @media (prefers-color-scheme: dark) :root:not([data-theme="light"])
+   3. Explicit User Override Dark Theme: :root[data-theme="dark"]
+   4. Explicit User Override Light Theme: :root[data-theme="light"]
+   -------------------------------------------------------------------------- */
+
 :root {
+    /* Base Light Luxury Studio Palette */
+    --bg-dark: #f5f7fb;
+    --bg-radial: radial-gradient(circle at 50% 0%, #ffffff 0%, #e6ebf4 75%);
+    --panel-bg: #ffffff;
+    --card-bg: #fdfdfd;
+    --card-bg-hover: #f1f4f9;
+
+    --border-subtle: rgba(0, 0, 0, 0.09);
+    --border-hover: rgba(184, 134, 11, 0.45);
+
+    --text-primary: #12141a;
+    --text-muted: #535969;
+    --text-dim: #7e879c;
+
+    --gold-primary: #a3780c;
+    --gold-light: #7b5905;
+    --gold-glow: rgba(184, 134, 11, 0.15);
+    --gold-gradient: linear-gradient(135deg, #1f1a10 15%, #94711d 60%, #614a0f 100%);
+
+    --header-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 243, 248, 0.85) 100%);
+
+    --emerald-active: #059669;
+    --emerald-bg: rgba(5, 150, 105, 0.12);
+
+    --btn-danger-border: #dc2626;
+    --btn-danger-text: #dc2626;
+    --btn-danger-hover: #dc2626;
+
+    --radius-pill: 9999px;
+    --radius-card: 18px;
+    --radius-inner: 12px;
+
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.12), 0 0 20px rgba(184, 134, 11, 0.12);
+}
+
+/* Explicit Light Mode Override */
+:root[data-theme="light"] {
+    --bg-dark: #f5f7fb;
+    --bg-radial: radial-gradient(circle at 50% 0%, #ffffff 0%, #e6ebf4 75%);
+    --panel-bg: #ffffff;
+    --card-bg: #fdfdfd;
+    --card-bg-hover: #f1f4f9;
+
+    --border-subtle: rgba(0, 0, 0, 0.09);
+    --border-hover: rgba(184, 134, 11, 0.45);
+
+    --text-primary: #12141a;
+    --text-muted: #535969;
+    --text-dim: #7e879c;
+
+    --gold-primary: #a3780c;
+    --gold-light: #7b5905;
+    --gold-glow: rgba(184, 134, 11, 0.15);
+    --gold-gradient: linear-gradient(135deg, #1f1a10 15%, #94711d 60%, #614a0f 100%);
+
+    --header-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 243, 248, 0.85) 100%);
+
+    --emerald-active: #059669;
+    --emerald-bg: rgba(5, 150, 105, 0.12);
+
+    --btn-danger-border: #dc2626;
+    --btn-danger-text: #dc2626;
+    --btn-danger-hover: #dc2626;
+
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.12), 0 0 20px rgba(184, 134, 11, 0.12);
+}
+
+/* System Dark Theme (unless explicitly chosen light) */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-dark: #0b0c10;
+        --bg-radial: radial-gradient(circle at 50% 0%, #1c1e28 0%, #0c0d12 75%);
+        --panel-bg: #13151c;
+        --card-bg: #181a24;
+        --card-bg-hover: #1e212e;
+
+        --border-subtle: rgba(255, 255, 255, 0.07);
+        --border-hover: rgba(212, 175, 55, 0.4);
+
+        --text-primary: #f5f6f9;
+        --text-muted: #8e94a5;
+        --text-dim: #5c6275;
+
+        --gold-primary: #d4af37;
+        --gold-light: #f7e7a9;
+        --gold-glow: rgba(212, 175, 55, 0.16);
+        --gold-gradient: linear-gradient(135deg, #ffffff 20%, #f7e7a9 60%, #c89d28 100%);
+
+        --header-bg: linear-gradient(180deg, rgba(20, 22, 31, 0.85) 0%, rgba(11, 12, 16, 0.5) 100%);
+
+        --emerald-active: #34d399;
+        --emerald-bg: rgba(52, 211, 153, 0.12);
+
+        --btn-danger-border: #f87171;
+        --btn-danger-text: #f87171;
+        --btn-danger-hover: #ef4444;
+
+        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
+        --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+}
+
+/* Explicit User Override Dark Theme */
+:root[data-theme="dark"] {
     --bg-dark: #0b0c10;
     --bg-radial: radial-gradient(circle at 50% 0%, #1c1e28 0%, #0c0d12 75%);
     --panel-bg: #13151c;
     --card-bg: #181a24;
     --card-bg-hover: #1e212e;
-    
+
     --border-subtle: rgba(255, 255, 255, 0.07);
     --border-hover: rgba(212, 175, 55, 0.4);
-    
+
     --text-primary: #f5f6f9;
     --text-muted: #8e94a5;
     --text-dim: #5c6275;
-    
+
     --gold-primary: #d4af37;
     --gold-light: #f7e7a9;
     --gold-glow: rgba(212, 175, 55, 0.16);
     --gold-gradient: linear-gradient(135deg, #ffffff 20%, #f7e7a9 60%, #c89d28 100%);
-    
+
+    --header-bg: linear-gradient(180deg, rgba(20, 22, 31, 0.85) 0%, rgba(11, 12, 16, 0.5) 100%);
+
     --emerald-active: #34d399;
     --emerald-bg: rgba(52, 211, 153, 0.12);
-    
-    --radius-pill: 9999px;
-    --radius-card: 18px;
-    --radius-inner: 12px;
-    
+
+    --btn-danger-border: #f87171;
+    --btn-danger-text: #f87171;
+    --btn-danger-hover: #ef4444;
+
     --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
     --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
 }
@@ -48,6 +164,7 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .app-root {
@@ -58,11 +175,40 @@ body {
 
 /* --- Executive Studio Header --- */
 .app-header {
+    position: relative;
     padding: 48px 24px 36px;
     text-align: center;
     border-bottom: 1px solid var(--border-subtle);
-    background: linear-gradient(180deg, rgba(20, 22, 31, 0.8) 0%, rgba(11, 12, 16, 0.4) 100%);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
+}
+
+/* Etapa 5: Theme Toggle Button placed in header corner */
+.theme-toggle {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    padding: 8px 18px;
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-pill);
+    background: rgba(184, 134, 11, 0.08);
+    color: var(--gold-light);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: var(--gold-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 16px var(--gold-glow);
+    transform: translateY(-1px);
 }
 
 .header-badge {
@@ -74,8 +220,8 @@ body {
     text-transform: uppercase;
     padding: 6px 14px;
     border-radius: var(--radius-pill);
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: rgba(184, 134, 11, 0.08);
+    border: 1px solid var(--border-hover);
     margin-bottom: 14px;
 }
 
@@ -87,7 +233,7 @@ body {
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     margin-bottom: 8px;
 }
 
@@ -109,7 +255,7 @@ body {
 }
 
 .kpi-card {
-    background: rgba(24, 26, 36, 0.7);
+    background: var(--card-bg);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-inner);
     padding: 12px 20px;
@@ -117,18 +263,17 @@ body {
     flex-direction: column;
     align-items: center;
     min-width: 140px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-card);
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .kpi-card:hover {
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--border-hover);
 }
 
 .kpi-highlight {
-    border-color: rgba(212, 175, 55, 0.35);
-    background: linear-gradient(135deg, rgba(30, 33, 46, 0.8) 0%, rgba(20, 22, 31, 0.9) 100%);
+    border-color: var(--border-hover);
     box-shadow: 0 4px 20px var(--gold-glow);
 }
 
@@ -140,7 +285,7 @@ body {
 }
 
 .kpi-highlight .kpi-number {
-    color: var(--gold-light);
+    color: var(--gold-primary);
 }
 
 .kpi-label {
@@ -153,17 +298,17 @@ body {
 }
 
 .kpi-highlight .kpi-label {
-    color: var(--gold-primary);
+    color: var(--gold-light);
 }
 
-/* Contor cerut de baremul facultății */
+/* Derived active counter requirement */
 .app-count {
     display: inline-block;
     padding: 8px 18px;
     border-radius: var(--radius-pill);
-    background: rgba(212, 175, 55, 0.08);
+    background: rgba(184, 134, 11, 0.08);
     color: var(--gold-light);
-    border: 1px solid rgba(212, 175, 55, 0.28);
+    border: 1px solid var(--border-hover);
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.3px;
@@ -215,7 +360,7 @@ body {
     font-family: "Cinzel", Georgia, serif;
     font-size: 1.35rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
     letter-spacing: 0.5px;
 }
 
@@ -237,7 +382,7 @@ body {
     padding: 6px 12px;
     border-radius: var(--radius-pill);
     background: var(--emerald-bg);
-    border: 1px solid rgba(52, 211, 153, 0.3);
+    border: 1px solid rgba(5, 150, 105, 0.3);
 }
 
 .live-pulse {
@@ -245,19 +390,19 @@ body {
     height: 8px;
     border-radius: 50%;
     background: var(--emerald-active);
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
     animation: pulseDot 2s infinite;
 }
 
 @keyframes pulseDot {
     0% {
-        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+        box-shadow: 0 0 0 8px rgba(5, 150, 105, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+        box-shadow: 0 0 0 0 rgba(5, 150, 105, 0);
     }
 }
 
@@ -278,8 +423,8 @@ body {
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-inner);
     padding: 18px 24px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
     position: relative;
 }
 
@@ -301,7 +446,7 @@ body {
 .ticket-time {
     font-size: 1.45rem;
     font-weight: 800;
-    color: var(--gold-light);
+    color: var(--gold-primary);
     letter-spacing: -0.5px;
     line-height: 1.1;
 }
@@ -319,25 +464,36 @@ body {
     font-size: 0.68rem;
     font-weight: 700;
     color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--card-bg-hover);
     padding: 2px 8px;
     border-radius: var(--radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
 }
 
 /* Divider vertical */
 .ticket-divider {
     width: 1px;
     height: 70%;
-    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    background: linear-gradient(180deg, transparent, var(--border-subtle), transparent);
 }
 
-/* Main Details Column */
-.ticket-main-col {
+/* Etapa 5: Main Details Column wrapped in label for effortless click */
+.ticket-main-col, .appointment-main, .task-main {
     display: flex;
     align-items: center;
     gap: 16px;
     overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Etapa 5: Controlled Checkbox */
+.appointment-checkbox, .task-main input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--gold-primary);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .client-avatar {
@@ -345,16 +501,16 @@ body {
     height: 44px;
     flex-shrink: 0;
     border-radius: 50%;
-    background: linear-gradient(135deg, #252836 0%, #171922 100%);
-    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    background: var(--card-bg-hover);
+    border: 1.5px solid var(--border-hover);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
     font-size: 0.85rem;
-    color: var(--gold-light);
+    color: var(--gold-primary);
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ticket-details {
@@ -374,8 +530,9 @@ body {
 .client-name {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
     letter-spacing: 0.2px;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
 .service-name, .barber-assigned {
@@ -387,7 +544,7 @@ body {
 }
 
 .barber-assigned strong {
-    color: #e2e4eb;
+    color: var(--text-primary);
     font-weight: 600;
 }
 
@@ -411,27 +568,29 @@ body {
 }
 
 .tag-combo {
-    background: rgba(212, 175, 55, 0.12);
-    color: #f3df8a;
-    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(184, 134, 11, 0.12);
+    color: var(--gold-primary);
+    border-color: var(--border-hover);
 }
 
 .tag-haircut {
-    background: rgba(56, 189, 248, 0.1);
-    color: #7dd3fc;
-    border-color: rgba(56, 189, 248, 0.25);
+    background: rgba(56, 189, 248, 0.12);
+    color: #0284c7;
+    border-color: rgba(56, 189, 248, 0.35);
 }
 
 .tag-beard {
-    background: rgba(168, 85, 247, 0.1);
-    color: #d8b4fe;
-    border-color: rgba(168, 85, 247, 0.25);
+    background: rgba(168, 85, 247, 0.12);
+    color: #9333ea;
+    border-color: rgba(168, 85, 247, 0.35);
 }
 
-/* Status Column */
-.ticket-status-col {
+/* Etapa 5: Actions Column & Status */
+.ticket-actions-col {
     display: flex;
     align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
 }
 
 .card-status {
@@ -448,7 +607,7 @@ body {
 .status-active {
     background: var(--emerald-bg);
     color: var(--emerald-active);
-    border: 1px solid rgba(52, 211, 153, 0.3);
+    border: 1px solid rgba(5, 150, 105, 0.3);
 }
 
 .status-pulse-dot {
@@ -456,47 +615,67 @@ body {
     height: 6px;
     border-radius: 50%;
     background: var(--emerald-active);
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
     animation: pulseDot 2s infinite;
 }
 
 .status-done {
-    background: rgba(255, 255, 255, 0.05);
-    color: #717686;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--card-bg-hover);
+    color: var(--text-dim);
+    border: 1px solid var(--border-subtle);
+}
+
+/* Etapa 5: Accessible Delete Button */
+.btn-danger {
+    border: 1px solid var(--btn-danger-border);
+    background: transparent;
+    color: var(--btn-danger-text);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    background: var(--btn-danger-hover);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+    transform: translateY(-1px);
 }
 
 /* Done State */
-.item-card.done {
-    opacity: 0.52;
-    background-color: rgba(18, 20, 28, 0.6);
-    border-color: rgba(255, 255, 255, 0.04);
+.item-card.done, .task-card.done {
+    opacity: 0.55;
+    background-color: var(--card-bg);
 }
 
-.item-card.done:hover {
+.item-card.done:hover, .task-card.done:hover {
     opacity: 0.85;
-    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .item-card.done .client-name {
     text-decoration: line-through;
-    color: #8c909e;
+    color: var(--text-dim);
 }
 
 .item-card.done .client-avatar {
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #717686;
+    border-color: var(--border-subtle);
+    color: var(--text-dim);
 }
 
 .item-card.done .ticket-time {
-    color: #7a8092;
+    color: var(--text-dim);
 }
 
 /* --- Empty State --- */
 .empty-state {
     text-align: center;
     padding: 48px 24px;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--card-bg-hover);
     border: 1.5px dashed var(--border-subtle);
     border-radius: var(--radius-inner);
 }
@@ -509,9 +688,9 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    color: var(--gold-light);
+    background: rgba(184, 134, 11, 0.08);
+    border: 1px solid var(--border-hover);
+    color: var(--gold-primary);
 }
 
 .empty-icon-wrap svg {
@@ -522,7 +701,7 @@ body {
 .empty {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
     margin-bottom: 6px;
 }
 
@@ -543,29 +722,35 @@ body {
 }
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 720px) {
+@media (max-width: 768px) {
+    .theme-toggle {
+        position: static;
+        margin-bottom: 18px;
+    }
+
     .appointment-ticket {
         grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 16px;
         text-align: left;
     }
 
     .ticket-time-col {
         flex-direction: row;
-        gap: 10px;
+        gap: 12px;
         align-items: baseline;
         justify-content: flex-start;
-        padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-subtle);
     }
 
     .ticket-divider {
         display: none;
     }
 
-    .ticket-status-col {
-        justify-content: flex-start;
-        padding-top: 6px;
+    .ticket-actions-col {
+        justify-content: space-between;
+        padding-top: 8px;
+        border-top: 1px solid var(--border-subtle);
     }
 
     .header-kpis {

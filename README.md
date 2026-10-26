@@ -25,15 +25,20 @@ The application uses the following dataset (consistent across stages):
 
 ---
 
+## Stage 5: local state and events
+The list lives in React state. Checking and deleting work from the page, and the counters in the header follow automatically. A button in the header switches between light and dark mode. Changes are lost on refresh, which is what stage 6 and stage 10 fix.
+
+## Status
+- [x] Stage 4: components rendered from data
+- [x] Stage 5: local state and events
+- [ ] Stage 6: loading data from a mock API
+
+---
+
 ## Stage 4: components
 The list is rendered from the data, through two components:
 - `AppointmentList` receives the whole array and renders one card per item (handling the empty list state).
 - `AppointmentCard` receives a single item through props and displays it.
-
-## Status
-- [x] Stage 3: Vite and React project
-- [x] Stage 4: components rendered from data
-- [ ] Stage 5: local state and events
 
 ---
 
@@ -65,9 +70,9 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 
 | Tool Utilized | Application Area |
 | :--- | :--- |
-| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, and component-based UI rendering with props and conditional states in Stage 4. |
+| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, and local state management with immutable updates, controlled inputs, and CSS theme switching in Stage 5. |
 
-*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, and `ai-log/etapa-04.md` files.*
+*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, and `ai-log/etapa-05.md` files.*
 
 ---
 
@@ -77,17 +82,32 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 - [x] **Stage 2: JavaScript Data Logic & Interactive Interface**
 - [x] **Stage 3: Vite and React project**
 - [x] **Stage 4: components rendered from data**
-- [ ] Stage 5: local state and events
+- [x] **Stage 5: local state and events**
 
-### Stage 4 Verification Table
+### Stage 5 Verification Table
+
+| ID | Requirement | Where | How to check |
+| :--- | :--- | :--- | :--- |
+| **S5-R1** | list kept in useState, in App | `frontend/src/App.jsx#L47` | read |
+| **S5-R2** | toggling changes state and card look | `frontend/src/App.jsx#L51-L55`, `frontend/src/components/AppointmentCard.jsx#L56-L62` | click a checkbox |
+| **S5-R3** | delete removes the item | `frontend/src/App.jsx#L58-L60`, `frontend/src/components/AppointmentCard.jsx#L111-L117` | click Delete |
+| **S5-R4** | header counter derived, not in state | `frontend/src/App.jsx#L70-L71` | toggle, watch header |
+| **S5-R5** | immutable updates (no push, splice, assignment) | `frontend/src/App.jsx#L51-L60` | read |
+| **S5-R6** | light / dark toggle: state + data-theme on html | `frontend/src/App.jsx#L48-L67`, `frontend/src/App.css#L20-L150` | click the button, both system themes |
+| **S5-R7** | no console warnings; README + AI log | `README.md`, `ai-log/etapa-05.md` | F12, Console |
+| **S5-R8** | commit "Stage 5: local state and events" pushed | Git commit history | `git log` |
+
+---
+
+### Stage 4 Verification Table (Historical Reference)
 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
 | **S4-R1** | 2+ components in src/components/ | `frontend/src/components/` | open folder |
-| **S4-R2** | card receives data through props | `frontend/src/components/AppointmentCard.jsx#L8-L32` | read code |
-| **S4-R3** | map + key={id}, no console warnings | `frontend/src/components/AppointmentList.jsx#L13-L17` | F12, Console |
-| **S4-R4** | message for empty list | `frontend/src/components/AppointmentList.jsx#L6-L9` | set array to `[]` in App.jsx |
-| **S4-R5** | state changes the card look | `frontend/src/components/AppointmentCard.jsx#L13` | toggle a `done` flag |
+| **S4-R2** | card receives data through props | `frontend/src/components/AppointmentCard.jsx#L27-L43` | read code |
+| **S4-R3** | map + key={id}, no console warnings | `frontend/src/components/AppointmentList.jsx#L34-L44` | F12, Console |
+| **S4-R4** | message for empty list | `frontend/src/components/AppointmentList.jsx#L14-L31` | set array to `[]` in App.jsx |
+| **S4-R5** | state changes the card look | `frontend/src/components/AppointmentCard.jsx#L43` | toggle a `done` flag |
 | **S4-R6** | README Stage 4 section + AI log | `README.md`, `ai-log/etapa-04.md` | read files in repository |
 | **S4-R7** | commit "Stage 4: components rendered from data" pushed | Git commit history | `git log` |
 
@@ -98,8 +118,8 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
 | **S3-R1** | npm run dev starts without errors | `frontend/package.json` | `cd frontend`, `npm install`, `npm run dev` |
-| **S3-R2** | app name and counter computed from data | `frontend/src/App.jsx#L38-L49` | edit data, save, check browser |
-| **S3-R3** | data from README, not from the example | `frontend/src/App.jsx#L3-L37` | compare with README dataset |
+| **S3-R2** | app name and counter computed from data | `frontend/src/App.jsx` | edit data, save, check browser |
+| **S3-R3** | data from README, not from the example | `frontend/src/App.jsx` | compare with README dataset |
 | **S3-R4** | stage 1 styles reused | `frontend/src/App.css` | check layout and styles in browser |
 | **S3-R5** | node_modules ignored, build passes | `frontend/.gitignore` | `cd frontend`, `npm run build` |
 | **S3-R6** | README Stage 3 section + AI log | `README.md`, `ai-log/etapa-03.md` | read files in repository |

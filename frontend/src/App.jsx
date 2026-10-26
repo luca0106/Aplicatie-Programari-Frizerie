@@ -1,6 +1,8 @@
+import { useState } from "react";
 import AppointmentList from "./components/AppointmentList.jsx";
 
-const programari = [
+// Initial appointments dataset (matches README specifications)
+const PROGRAMARI_INITIALE = [
   {
     id: 1,
     clientName: "Andrew Smith",
@@ -36,13 +38,50 @@ const programari = [
   }
 ];
 
+// Initial theme: detected from system preference (OS color scheme)
+function temaInitiala() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
 export default function App() {
+  const [programari, setProgramari] = useState(PROGRAMARI_INITIALE);
+  const [tema, setTema] = useState(temaInitiala);
+
+  // Immutable toggle: new array, new object for toggled item
+  function handleToggle(id) {
+    setProgramari((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
+    );
+  }
+
+  // Immutable delete: returns new array filtered without deleted item
+  function handleDelete(id) {
+    setProgramari((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  // Theme switch: update local state for button label and set HTML data-theme attribute
+  function handleTema() {
+    const noua = tema === "dark" ? "light" : "dark";
+    setTema(noua);
+    document.documentElement.dataset.theme = noua;
+  }
+
+  // Derived values: recalculated dynamically on every render
   const active = programari.filter((p) => !p.done).length;
   const completed = programari.length - active;
 
   return (
     <div className="app-root">
       <header className="app-header">
+        {/* Theme toggle placed first inside header */}
+        <button
+          className="theme-toggle"
+          onClick={handleTema}
+          aria-pressed={tema === "dark"}
+        >
+          {tema === "dark" ? "Light Mode" : "Dark Mode"}
+        </button>
+
         <div className="header-badge">EST. 2026 • EXECUTIVE BARBER SUITE</div>
         <h1 className="brand-title">BarberFlow</h1>
         <p className="header-subtitle">
@@ -65,7 +104,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Official counter requirement */}
+        {/* Official course requirement counter */}
         <p className="app-count">
           {programari.length} appointments, of which {active} active
         </p>
@@ -84,7 +123,11 @@ export default function App() {
             </span>
           </div>
 
-          <AppointmentList programari={programari} />
+          <AppointmentList
+            programari={programari}
+            onToggle={handleToggle}
+            onDelete={handleDelete}
+          />
         </section>
       </main>
 
