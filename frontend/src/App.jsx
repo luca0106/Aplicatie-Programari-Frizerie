@@ -1,42 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppointmentList from "./components/AppointmentList.jsx";
-
-// Initial appointments dataset (matches README specifications)
-const PROGRAMARI_INITIALE = [
-  {
-    id: 1,
-    clientName: "Andrew Smith",
-    serviceName: "Haircut & Beard Trim",
-    duration: 60,
-    barber: "Nicholas Andrei",
-    date: "2026-06-10",
-    time: "10:00",
-    done: false,
-    tag: "Combo"
-  },
-  {
-    id: 2,
-    clientName: "Michael Johnson",
-    serviceName: "Signature Haircut",
-    duration: 40,
-    barber: "Madalin Plesa",
-    date: "2026-06-10",
-    time: "11:00",
-    done: true,
-    tag: "Haircut"
-  },
-  {
-    id: 3,
-    clientName: "Christian Davis",
-    serviceName: "Beard Trim with Razor",
-    duration: 30,
-    barber: "Nicholas Andrei",
-    date: "2026-06-10",
-    time: "12:00",
-    done: false,
-    tag: "Beard"
-  }
-];
+import { fetchAppointments } from "./api.js";
 
 // Initial theme: detected from system preference (OS color scheme)
 function temaInitiala() {
@@ -44,10 +8,35 @@ function temaInitiala() {
 }
 
 export default function App() {
-  const [programari, setProgramari] = useState(PROGRAMARI_INITIALE);
+  // Stage 6: Data is now loaded from the REST API server into local state
+  const [programari, setProgramari] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [tema, setTema] = useState(temaInitiala);
 
-  // Immutable toggle: new array, new object for toggled item
+  // Runs once on mount to fetch data from json-server
+  useEffect(() => {
+    let ignore = false;
+
+    async function load() {
+      try {
+        const data = await fetchAppointments();
+        if (!ignore) setProgramari(data);
+      } catch (err) {
+        if (!ignore) setError(err.message);
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // Immutable toggle: new array, new object for toggled item (local in Stage 6, synced with API in Stage 7)
   function handleToggle(id) {
     setProgramari((prev) =>
       prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
@@ -123,11 +112,22 @@ export default function App() {
             </span>
           </div>
 
-          <AppointmentList
-            programari={programari}
-            onToggle={handleToggle}
-            onDelete={handleDelete}
-          />
+          {/* Stage 6: The three loading, error, and success states */}
+          {loading && <p className="info">Loading appointments...</p>}
+
+          {error && (
+            <p className="error">
+              Failed to load data: {error}. Is the server running? Run <code>npm run api</code> in a terminal.
+            </p>
+          )}
+
+          {!loading && !error && (
+            <AppointmentList
+              programari={programari}
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+            />
+          )}
         </section>
       </main>
 

@@ -46,6 +46,10 @@
     --btn-danger-text: #dc2626;
     --btn-danger-hover: #dc2626;
 
+    --error-bg: #fef2f2;
+    --error-border: #fecaca;
+    --error-text: #dc2626;
+
     --radius-pill: 9999px;
     --radius-card: 18px;
     --radius-inner: 12px;
@@ -83,6 +87,10 @@
     --btn-danger-text: #dc2626;
     --btn-danger-hover: #dc2626;
 
+    --error-bg: #fef2f2;
+    --error-border: #fecaca;
+    --error-text: #dc2626;
+
     --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06);
     --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.12), 0 0 20px rgba(184, 134, 11, 0.12);
 }
@@ -117,6 +125,10 @@
         --btn-danger-text: #f87171;
         --btn-danger-hover: #ef4444;
 
+        --error-bg: #2d1519;
+        --error-border: #5c2229;
+        --error-text: #f87171;
+
         --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
         --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
     }
@@ -150,6 +162,10 @@
     --btn-danger-border: #f87171;
     --btn-danger-text: #f87171;
     --btn-danger-hover: #ef4444;
+
+    --error-bg: #2d1519;
+    --error-border: #5c2229;
+    --error-text: #f87171;
 
     --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
     --shadow-hover: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
@@ -761,4 +777,30 @@ body {
     .kpi-card {
         min-width: unset;
     }
+}
+
+/* --- Stage 6: Loading and Error States --- */
+.info {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 16px 4px;
+}
+
+.error {
+    color: var(--error-text);
+    background: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: var(--radius-inner);
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 14px 0;
+}
+
+.error code {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
 }
