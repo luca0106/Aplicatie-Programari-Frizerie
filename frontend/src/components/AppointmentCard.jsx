@@ -12,6 +12,13 @@ function getInitials(name) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
+function formatDuration(minutes) {
+  if (!minutes) return "45 min";
+  if (minutes === 60) return "1 h";
+  if (minutes === 90) return "1 h 30 min";
+  return `${minutes} min`;
+}
+
 function formatDate(dateStr) {
   if (!dateStr) return "";
   try {
@@ -35,17 +42,21 @@ export default function AppointmentCard({
   if (!item) return null;
 
   const isDone = item.done !== undefined ? item.done : Boolean(item.gata);
-  const clientName = item.clientName || item.titlu || "Client";
+  const clientName = item.clientName || item.titlu || item.title || "Client";
   const initials = getInitials(clientName);
   const prettyDate = formatDate(item.date);
 
   return (
-    <li className={`item-card task-card appointment-ticket ${isDone ? "done" : ""}`}>
+    <li
+      className={`item-card task-card appointment-ticket ${isDone ? "done" : ""}`}
+      data-testid="item"
+      data-id={item.id}
+    >
       {/* 1. Time & Date Block (Ticket Style) */}
       <div className="ticket-time-col">
         <span className="ticket-time">{item.time || "—"}</span>
         <span className="ticket-date">{prettyDate || "TODAY"}</span>
-        <span className="ticket-duration">{item.duration ? `${item.duration} min` : "45 min"}</span>
+        <span className="ticket-duration">{formatDuration(item.duration)}</span>
       </div>
 
       <div className="ticket-divider" aria-hidden="true"></div>
@@ -59,6 +70,7 @@ export default function AppointmentCard({
           checked={isDone}
           onChange={() => onToggle && onToggle(item.id)}
           aria-label={`Mark appointment for ${clientName} as ${isDone ? "upcoming" : "completed"}`}
+          data-testid="item-toggle"
         />
 
         <div className="client-avatar" title={clientName}>
@@ -67,7 +79,7 @@ export default function AppointmentCard({
 
         <div className="ticket-details">
           <div className="ticket-client-row">
-            <h3 className="client-name">{clientName}</h3>
+            <h3 className="client-name" data-testid="item-title">{clientName}</h3>
             {item.tag && (
               <span className={`tag-badge tag-${item.tag.toLowerCase()}`}>
                 {ETICHETE_TAG[item.tag] || item.tag}
@@ -113,6 +125,7 @@ export default function AppointmentCard({
           className="btn-danger"
           onClick={() => onDelete && onDelete(item.id)}
           aria-label={`Delete appointment for ${clientName}`}
+          data-testid="item-delete"
         >
           Delete
         </button>

@@ -22,7 +22,7 @@ export default function AppointmentList({
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
         </div>
-        <p className="empty">No appointments scheduled.</p>
+        <p className="empty" data-testid="empty">No appointments scheduled.</p>
         <span className="empty-sub">
           All grooming sessions are completed or none have been booked yet.
         </span>

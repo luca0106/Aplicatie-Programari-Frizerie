@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import AppointmentList from "./components/AppointmentList.jsx";
-import { fetchAppointments } from "./api.js";
+import AppointmentForm from "./components/AppointmentForm.jsx";
+import {
+  createAppointment,
+  deleteAppointment,
+  fetchAppointments,
+  updateAppointment
+} from "./api.js";
 
 // Initial theme: detected from system preference (OS color scheme)
 function temaInitiala() {
@@ -8,7 +14,6 @@ function temaInitiala() {
 }
 
 export default function App() {
-  // Stage 6: Data is now loaded from the REST API server into local state
   const [programari, setProgramari] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,16 +41,35 @@ export default function App() {
     };
   }, []);
 
-  // Immutable toggle: new array, new object for toggled item (local in Stage 6, synced with API in Stage 7)
-  function handleToggle(id) {
-    setProgramari((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
-    );
+  // Stage 7: POST new appointment; errors propagate to AppointmentForm
+  async function handleAdd(nouaProgramare) {
+    const creat = await createAppointment(nouaProgramare);
+    setProgramari((prev) => [...prev, creat]);
   }
 
-  // Immutable delete: returns new array filtered without deleted item
-  function handleDelete(id) {
-    setProgramari((prev) => prev.filter((t) => t.id !== id));
+  // Stage 7: PATCH toggle state; persists to json-server
+  async function handleToggle(id) {
+    const curent = programari.find((p) => p.id === id);
+    if (!curent) return;
+
+    try {
+      const actualizat = await updateAppointment(id, { done: !curent.done });
+      setProgramari((prev) =>
+        prev.map((p) => (p.id === id ? actualizat : p))
+      );
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  // Stage 7: DELETE appointment; persists to json-server
+  async function handleDelete(id) {
+    try {
+      await deleteAppointment(id);
+      setProgramari((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
   }
 
   // Theme switch: update local state for button label and set HTML data-theme attribute
@@ -99,8 +123,13 @@ export default function App() {
         </p>
       </header>
 
+      {/* Stage 7: Responsive 2-column layout with Form on left, Appointments list on right */}
       <main className="container">
-        <section className="panel">
+        <section className="panel form-panel">
+          <AppointmentForm onAdd={handleAdd} appointments={programari} />
+        </section>
+
+        <section className="panel list-panel">
           <div className="panel-header-row">
             <div>
               <h2>Studio Appointments</h2>
@@ -112,16 +141,22 @@ export default function App() {
             </span>
           </div>
 
-          {/* Stage 6: The three loading, error, and success states */}
-          {loading && <p className="info">Loading appointments...</p>}
-
-          {error && (
-            <p className="error">
-              Failed to load data: {error}. Is the server running? Run <code>npm run api</code> in a terminal.
+          {/* Loading indicator */}
+          {loading && (
+            <p className="info" data-testid="loading">
+              Loading appointments...
             </p>
           )}
 
-          {!loading && !error && (
+          {/* Global error message */}
+          {error && (
+            <p className="error" data-testid="error">
+              Failed to communicate with server: {error}. Is the server running? Run <code>npm run api</code> in a terminal.
+            </p>
+          )}
+
+          {/* Render appointments list once initial load completes */}
+          {!loading && (
             <AppointmentList
               programari={programari}
               onToggle={handleToggle}

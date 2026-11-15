@@ -1,0 +1,8 @@
+{
+  "resource": "appointments",
+  "title": "clientName",
+  "done": "done",
+  "sample": {
+    "tag": "Combo"
+  }
+}

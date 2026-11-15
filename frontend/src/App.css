@@ -332,14 +332,15 @@ body {
 
 /* --- Container & Main Panel --- */
 .container {
-    max-width: 960px;
+    max-width: 1200px;
     width: 100%;
     margin: 36px auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 2fr;
     gap: 28px;
     flex: 1;
+    align-items: start;
 }
 
 .panel {
@@ -738,6 +739,12 @@ body {
 }
 
 /* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .theme-toggle {
         position: static;
@@ -804,3 +811,555 @@ body {
     border-radius: 4px;
     font-weight: 700;
 }
+
+/* ==========================================================================
+   Etapa 7: Form and Validation Styles
+   ========================================================================== */
+
+.form-panel {
+    position: sticky;
+    top: 24px;
+}
+
+.task-form, .appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-header-group {
+    margin-bottom: 4px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.form-heading {
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.form-subheading {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.required-star {
+    color: var(--btn-danger-text);
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-inner);
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus, .form-select:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+.form-input::placeholder {
+    color: var(--text-dim);
+    opacity: 0.7;
+}
+
+/* Service hint metadata pills */
+.service-meta-hint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 8px 12px;
+    background: rgba(184, 134, 11, 0.05);
+    border: 1px dashed var(--border-hover);
+    border-radius: var(--radius-inner);
+}
+
+.hint-pill {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    background: rgba(184, 134, 11, 0.1);
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+}
+
+.hint-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+    width: 100%;
+    margin-top: 2px;
+}
+
+/* Invalid input styling per Stage 7 requirements */
+.task-form input[aria-invalid="true"],
+.appointment-form input[aria-invalid="true"] {
+    border-color: var(--btn-danger-border);
+    background-color: rgba(220, 38, 38, 0.04);
+}
+
+/* Inline form error styling per Stage 7 requirements */
+.form-error {
+    color: var(--btn-danger-text);
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: var(--radius-inner);
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Submit button styling - High Contrast & Luxury */
+.btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #a3780c 0%, #7b5905 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-inner);
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(163, 120, 12, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    margin-top: 6px;
+}
+
+.btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(163, 120, 12, 0.45);
+}
+
+/* Explicit Dark Mode Submit Button: Rich metallic gold with deep black text for crystal clear legibility */
+:root[data-theme="dark"] .btn-submit {
+    background: linear-gradient(135deg, #f7d570 0%, #d4af37 60%, #b8860b 100%);
+    color: #0b0c10;
+    font-weight: 800;
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+}
+
+:root[data-theme="dark"] .btn-submit:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fae292 0%, #dfb743 60%, #c89616 100%);
+    color: #000000;
+    box-shadow: 0 6px 24px rgba(212, 175, 55, 0.55);
+}
+
+/* System Dark Theme Submit Button */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .btn-submit {
+        background: linear-gradient(135deg, #f7d570 0%, #d4af37 60%, #b8860b 100%);
+        color: #0b0c10;
+        font-weight: 800;
+        box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+    }
+
+    :root:not([data-theme="light"]) .btn-submit:hover:not(:disabled) {
+        background: linear-gradient(135deg, #fae292 0%, #dfb743 60%, #c89616 100%);
+        color: #000000;
+        box-shadow: 0 6px 24px rgba(212, 175, 55, 0.55);
+    }
+}
+
+/* Disabled button styling per Stage 7 requirements */
+.task-form button:disabled,
+.appointment-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   Smart Schedule & Time Slot Selection (Week Strip & Available Slots)
+   ========================================================================== */
+
+/* Placeholder when no service is selected */
+.schedule-empty-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 28px 16px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px dashed var(--border-subtle);
+    border-radius: var(--radius-inner);
+    gap: 6px;
+}
+
+:root[data-theme="dark"] .schedule-empty-placeholder {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .schedule-empty-placeholder {
+        background: rgba(255, 255, 255, 0.015);
+    }
+}
+
+.placeholder-icon {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    opacity: 0.85;
+}
+
+.placeholder-text {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.placeholder-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.booking-schedule-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px 10px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-inner);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+:root[data-theme="dark"] .booking-schedule-group {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .booking-schedule-group {
+        background: rgba(255, 255, 255, 0.02);
+    }
+}
+
+/* Week Navigation Bar */
+.week-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-week-nav {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-week-nav:hover {
+    color: var(--text-primary);
+    border-color: var(--gold-primary);
+    background: rgba(184, 134, 11, 0.08);
+}
+
+.week-range-text {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+}
+
+/* Week Days Strip - Perfectly sized, zero overflow */
+.week-days-strip {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.day-card-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 1px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font: inherit;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.day-card-btn:hover:not(.active):not(.closed) {
+    background: rgba(184, 134, 11, 0.08);
+    border-color: var(--border-subtle);
+}
+
+/* Closed day (Mondays and Sundays) */
+.day-card-btn.closed {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.day-closed-sub {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    color: var(--text-dim);
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.day-name {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.day-number-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: all 0.15s ease;
+}
+
+/* Active Selected Day */
+.day-card-btn.active .day-name {
+    color: var(--gold-light);
+    font-weight: 800;
+}
+
+.day-card-btn.active .day-number-circle {
+    background: #1d4ed8;
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(29, 78, 216, 0.45);
+}
+
+:root[data-theme="dark"] .day-card-btn.active .day-number-circle {
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.55);
+}
+
+/* Available Times Header */
+.available-times-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 2px 4px 2px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.available-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.studio-schedule-note {
+    font-size: 0.72rem;
+    color: var(--gold-light);
+    font-weight: 600;
+}
+
+.available-heading-text {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
+.available-heading-text strong {
+    color: var(--text-primary);
+}
+
+.slots-count-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--emerald-active);
+    background: var(--emerald-bg);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+}
+
+/* Time Slots List Container */
+.time-slots-container {
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.time-slots-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 4px;
+}
+
+.time-slots-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Individual Slot Row (matching screenshot: Time on left, Price and arrow on right) */
+.time-slot-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+.time-slot-card:hover {
+    border-color: var(--border-hover);
+    background: var(--card-bg-hover);
+    transform: translateY(-1px);
+}
+
+.slot-left-col {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slot-time-bold {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.slot-active-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: var(--emerald-active);
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+}
+
+.slot-right-col {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slot-price-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--gold-light);
+}
+
+.slot-arrow {
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+}
+
+.time-slot-card:hover .slot-arrow {
+    transform: translateX(3px);
+    color: var(--gold-primary);
+}
+
+/* Selected Slot */
+.time-slot-card.selected {
+    border: 2px solid #2563eb;
+    background: rgba(37, 99, 235, 0.08);
+}
+
+:root[data-theme="dark"] .time-slot-card.selected {
+    border: 2px solid #3b82f6;
+    background: rgba(59, 130, 246, 0.14);
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.2);
+}
+
+/* Empty State */
+.no-slots-box {
+    padding: 24px 16px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    border: 1px dashed var(--border-subtle);
+}
+
+.closed-day-box {
+    border-color: rgba(220, 38, 38, 0.25);
+    background: rgba(220, 38, 38, 0.04);
+}
+
+.no-slots-msg {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--btn-danger-text);
+    margin-bottom: 4px;
+}
+
+.no-slots-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+

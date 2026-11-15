@@ -27,8 +27,8 @@ The application uses the following dataset (stored in `frontend/db.json` and ser
 
 ---
 
-## Stage 6: data from a mock API
-The list is served by json-server from `db.json`. The app fetches it on load and shows a loading state and an error state.
+## Stage 7: form and validation
+The application features a controlled form component (`AppointmentForm.jsx`) for booking new appointments with instant client-side validation. Creating a new appointment persists to the mock REST API (`POST /appointments`) and automatically updates the studio queue. Toggling and deleting appointments issue persistent `PATCH` and `DELETE` requests so modifications survive browser reloads.
 
 ```bash
 npm run api # terminal 1, http://localhost:3001
@@ -38,7 +38,12 @@ npm run dev # terminal 2, http://localhost:5173
 ## Status
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
-- [ ] Stage 7: form and validation
+- [x] Stage 7: form and validation
+
+---
+
+## Stage 6: data from a mock API
+The list is served by json-server from `db.json`. The app fetches it on load and shows a loading state and an error state.
 
 ---
 
@@ -87,9 +92,9 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 
 | Tool Utilized | Application Area |
 | :--- | :--- |
-| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, and mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6. |
+| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6, and controlled form inputs with client-side validation, full REST API persistence (POST, PATCH, DELETE), and automated testid contracts in Stage 7. |
 
-*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, `ai-log/etapa-05.md`, and `ai-log/etapa-06.md` files.*
+*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, `ai-log/etapa-05.md`, `ai-log/etapa-06.md`, and `ai-log/etapa-07.md` files.*
 
 ---
 
@@ -101,8 +106,24 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 - [x] **Stage 4: components rendered from data**
 - [x] **Stage 5: local state and events**
 - [x] **Stage 6: data from a mock API**
+- [x] **Stage 7: form and validation**
 
-### Stage 6 Verification Table
+### Stage 7 Verification Table
+
+| ID | Requirement | Where | How to check |
+| :--- | :--- | :--- | :--- |
+| **S7-R1** | Controlled form (value + onChange on title input) | `frontend/src/components/AppointmentForm.jsx#L92-L107` | Inspect code, type into input |
+| **S7-R2** | Client-side validation: empty and >100 chars blocked with inline error | `frontend/src/components/AppointmentForm.jsx#L18-L27`, `frontend/src/components/AppointmentForm.jsx#L125-L133` | Submit empty form, enter >100 characters |
+| **S7-R3** | Submission & reset: onAdd called via POST, item added to list, form cleared | `frontend/src/components/AppointmentForm.jsx#L69-L73`, `frontend/src/App.jsx#L42-L46` | Fill name, click Book Appointment, check list and reset |
+| **S7-R4** | Testing attributes: all 12 data-testid present per Table 7.3 | `frontend/src/components/*.jsx`, `frontend/src/App.jsx` | Inspect DOM in DevTools for `data-testid` |
+| **S7-R5** | Automated validator configuration in tw.json | `tw.json` | Verify JSON resource, title, done, and sample fields |
+| **S7-R6** | Server persistence for toggle and delete | `frontend/src/App.jsx#L48-L72`, `frontend/src/api.js#L33-L45` | Toggle/delete item, refresh page (`F5`), state is retained |
+| **S7-R7** | README Stage 7 section + AI log | `README.md`, `ai-log/etapa-07.md` | Read repository documentation |
+| **S7-R8** | Git commit with exact message pushed to main | Git commit history | `git log -1` |
+
+---
+
+### Stage 6 Verification Table (Historical Reference)
 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
