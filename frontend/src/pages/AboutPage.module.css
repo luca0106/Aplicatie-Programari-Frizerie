@@ -1,0 +1,306 @@
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.heroPanel {
+  position: relative;
+  overflow: hidden;
+}
+
+.heroTag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: var(--gold-glow);
+  border: 1px solid var(--border-gold);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.heroTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.leadText {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 820px;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.2px;
+}
+
+/* Feature 3-column grid */
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.pillarCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.pillarCard:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+}
+
+.pillarIcon {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+
+.pillarCard h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin: 0;
+}
+
+.pillarCard p {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 2-column info grid */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.infoCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoCard h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold-light);
+  margin: 0;
+}
+
+.scheduleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scheduleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.scheduleDay {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.scheduleHours {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.closedTag {
+  color: #ef4444 !important;
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.contactList strong {
+  color: var(--text-primary);
+}
+
+/* Steps grid */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.stepCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 18px;
+  position: relative;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  color: #0b0c10;
+  font-weight: 900;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+}
+
+.stepCard h4 {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.stepCard p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Service catalog */
+.catalogList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.catalogItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  gap: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.catalogItem:hover {
+  border-color: var(--border-gold);
+}
+
+.catalogName {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.catalogSub {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: block;
+  margin-top: 2px;
+}
+
+.catalogMeta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.catalogPrice {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-light);
+  display: block;
+}
+
+.catalogDuration {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.etiquetteGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.etiquetteCard {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 16px 18px;
+}
+
+.etiquetteCard h4 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.etiquetteCard p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .pillarsGrid,
+  .stepsGrid,
+  .etiquetteGrid,
+  .infoGrid,
+  .catalogList {
+    grid-template-columns: 1fr;
+  }
+}

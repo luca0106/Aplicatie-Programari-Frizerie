@@ -1,0 +1,227 @@
+.card {
+  display: grid;
+  grid-template-columns: 95px 1px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-inner);
+  padding: 18px 22px;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+  background-color: var(--card-bg-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.done {
+  opacity: 0.58;
+  background-color: var(--card-bg);
+}
+
+.done:hover {
+  opacity: 0.85;
+}
+
+.timeCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.time {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.date {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.duration {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-top: 4px;
+}
+
+.divider {
+  width: 1px;
+  height: 100%;
+  min-height: 54px;
+  background: linear-gradient(180deg, transparent, var(--border-hover), transparent);
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--gold-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+  border: 1px solid var(--border-hover);
+  color: var(--gold-light);
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.clientRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.title:hover {
+  color: var(--gold-primary);
+  text-decoration: underline;
+}
+
+.done .title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.serviceName {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.barberAssigned {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.barberAssigned strong {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.iconSvg {
+  width: 14px;
+  height: 14px;
+  color: var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.actionsCol {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cardStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.3px;
+}
+
+.statusActive {
+  background: var(--emerald-bg);
+  color: var(--emerald-active);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.statusDone {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--emerald-active);
+}
+
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .timeCol {
+    flex-direction: row;
+    gap: 12px;
+    align-items: baseline;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .actionsCol {
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+}

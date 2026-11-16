@@ -1,35 +1,11 @@
-// Single appointment item component, receives data and callbacks via props
-const ETICHETE_TAG = {
-  Combo: "Haircut & Beard Package",
-  Haircut: "Signature Haircut",
-  Beard: "Beard Contouring"
-};
-
-function getInitials(name) {
-  if (!name) return "BF";
-  const parts = name.trim().split(" ");
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
-
-function formatDuration(minutes) {
-  if (!minutes) return "45 min";
-  if (minutes === 60) return "1 h";
-  if (minutes === 90) return "1 h 30 min";
-  return `${minutes} min`;
-}
-
-function formatDate(dateStr) {
-  if (!dateStr) return "";
-  try {
-    const [, month, day] = dateStr.split("-");
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    const mIdx = parseInt(month, 10) - 1;
-    return `${day} ${months[mIdx] || month}`;
-  } catch {
-    return dateStr;
-  }
-}
+import { Link } from "react-router-dom";
+import {
+  ETICHETE_TAG,
+  formatDurationLabel,
+  getInitials,
+  formatDateShort
+} from "../constants.js";
+import styles from "./AppointmentCard.module.css";
 
 export default function AppointmentCard({
   appointment,
@@ -44,52 +20,65 @@ export default function AppointmentCard({
   const isDone = item.done !== undefined ? item.done : Boolean(item.gata);
   const clientName = item.clientName || item.titlu || item.title || "Client";
   const initials = getInitials(clientName);
-  const prettyDate = formatDate(item.date);
+  const prettyDate = formatDateShort(item.date);
 
   return (
     <li
-      className={`item-card task-card appointment-ticket ${isDone ? "done" : ""}`}
+      className={isDone ? `${styles.card} ${styles.done}` : styles.card}
       data-testid="item"
       data-id={item.id}
     >
-      {/* 1. Time & Date Block (Ticket Style) */}
-      <div className="ticket-time-col">
-        <span className="ticket-time">{item.time || "—"}</span>
-        <span className="ticket-date">{prettyDate || "TODAY"}</span>
-        <span className="ticket-duration">{formatDuration(item.duration)}</span>
+      {/* 1. Time & Date Block */}
+      <div className={styles.timeCol}>
+        <span className={styles.time}>{item.time || "—"}</span>
+        <span className={styles.date}>{prettyDate || "TODAY"}</span>
+        <span className={styles.duration}>{formatDurationLabel(item.duration)}</span>
       </div>
 
-      <div className="ticket-divider" aria-hidden="true"></div>
+      <div className={styles.divider} aria-hidden="true"></div>
 
-      {/* 2. Client & Service Details inside <label> for effortless toggle click */}
-      <label className="ticket-main-col appointment-main task-main">
-        {/* Controlled checkbox */}
+      {/* 2. Client & Service Details inside <div> so <Link> navigates cleanly */}
+      <div className={styles.main}>
         <input
           type="checkbox"
-          className="appointment-checkbox"
+          className={styles.checkbox}
           checked={isDone}
           onChange={() => onToggle && onToggle(item.id)}
           aria-label={`Mark appointment for ${clientName} as ${isDone ? "upcoming" : "completed"}`}
           data-testid="item-toggle"
         />
 
-        <div className="client-avatar" title={clientName}>
+        <div className={styles.avatar} title={clientName}>
           {initials}
         </div>
 
-        <div className="ticket-details">
-          <div className="ticket-client-row">
-            <h3 className="client-name" data-testid="item-title">{clientName}</h3>
+        <div className={styles.details}>
+          <div className={styles.clientRow}>
+            <Link
+              to={`/appointments/${item.id}`}
+              className={styles.title}
+              data-testid="item-link"
+            >
+              {clientName}
+            </Link>
             {item.tag && (
-              <span className={`tag-badge tag-${item.tag.toLowerCase()}`}>
+              <span
+                className={`badge badge-${item.tag.toLowerCase()} tag-badge tag-${item.tag.toLowerCase()}`}
+              >
                 {ETICHETE_TAG[item.tag] || item.tag}
               </span>
             )}
           </div>
 
           {item.serviceName && (
-            <p className="service-name">
-              <svg className="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <p className={styles.serviceName}>
+              <svg
+                className={styles.iconSvg}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <circle cx="6" cy="6" r="3" />
                 <circle cx="6" cy="18" r="3" />
                 <line x1="20" y1="4" x2="8.12" y2="15.88" />
@@ -97,12 +86,19 @@ export default function AppointmentCard({
                 <line x1="8.12" y1="8.12" x2="12" y2="12" />
               </svg>
               {item.serviceName}
+              {item.price ? ` • ${item.price}` : ""}
             </p>
           )}
 
           {item.barber && (
-            <p className="barber-assigned">
-              <svg className="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <p className={styles.barberAssigned}>
+              <svg
+                className={styles.iconSvg}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
@@ -110,16 +106,19 @@ export default function AppointmentCard({
             </p>
           )}
         </div>
-      </label>
+      </div>
 
       {/* 3. Session Status and Action Buttons */}
-      <div className="ticket-actions-col">
-        <span className={`card-status ${isDone ? "status-done" : "status-active"}`}>
-          {!isDone && <span className="status-pulse-dot"></span>}
+      <div className={styles.actionsCol}>
+        <span
+          className={`${styles.cardStatus} ${
+            isDone ? styles.statusDone : styles.statusActive
+          }`}
+        >
+          {!isDone && <span className={styles.pulseDot}></span>}
           {isDone ? "✓ Completed" : "Upcoming"}
         </span>
 
-        {/* Accessible delete button */}
         <button
           type="button"
           className="btn-danger"

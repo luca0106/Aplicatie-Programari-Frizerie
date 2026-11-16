@@ -21,7 +21,12 @@ export function fetchAppointments() {
   return request("/appointments");
 }
 
-// 2. Create new appointment
+// 2. Read single appointment by ID (Stage 8 Detail Page)
+export function fetchAppointment(id) {
+  return request(`/appointments/${id}`);
+}
+
+// 3. Create new appointment
 export function createAppointment(appointment) {
   return request("/appointments", {
     method: "POST",
@@ -29,7 +34,7 @@ export function createAppointment(appointment) {
   });
 }
 
-// 3. Partial update (toggle done status or edit fields)
+// 4. Partial update (toggle done status or edit fields)
 export function updateAppointment(id, changes) {
   return request(`/appointments/${id}`, {
     method: "PATCH",
@@ -37,7 +42,7 @@ export function updateAppointment(id, changes) {
   });
 }
 
-// 4. Delete appointment
+// 5. Delete appointment
 export function deleteAppointment(id) {
   return request(`/appointments/${id}`, {
     method: "DELETE"
@@ -46,6 +51,7 @@ export function deleteAppointment(id) {
 
 // Aliases for universal rubric & automated testing compatibility
 export const fetchTasks = fetchAppointments;
+export const fetchTask = fetchAppointment;
 export const createTask = createAppointment;
 export const updateTask = updateAppointment;
 export const deleteTask = deleteAppointment;

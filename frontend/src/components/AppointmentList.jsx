@@ -1,6 +1,6 @@
 import AppointmentCard from "./AppointmentCard.jsx";
+import styles from "./AppointmentList.module.css";
 
-// Receives list and action functions, passing them down to each card
 export default function AppointmentList({
   programari,
   appointments,
@@ -10,11 +10,10 @@ export default function AppointmentList({
 }) {
   const lista = appointments || programari || taskuri || [];
 
-  // 1. Early return if the list is empty (after all appointments are deleted)
   if (lista.length === 0) {
     return (
-      <div className="empty-state">
-        <div className="empty-icon-wrap">
+      <div className={styles.emptyState}>
+        <div className={styles.emptyIconWrap}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
@@ -23,16 +22,15 @@ export default function AppointmentList({
           </svg>
         </div>
         <p className="empty" data-testid="empty">No appointments scheduled.</p>
-        <span className="empty-sub">
+        <span className={styles.emptySub}>
           All grooming sessions are completed or none have been booked yet.
         </span>
       </div>
     );
   }
 
-  // 2. Render list with map and key={item.id} directly on returned element
   return (
-    <ul className="item-list task-list">
+    <ul className={styles.list}>
       {lista.map((item) => (
         <AppointmentCard
           key={item.id}

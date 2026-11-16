@@ -27,8 +27,9 @@ The application uses the following dataset (stored in `frontend/db.json` and ser
 
 ---
 
-## Stage 7: form and validation
-The application features a controlled form component (`AppointmentForm.jsx`) for booking new appointments with instant client-side validation. Creating a new appointment persists to the mock REST API (`POST /appointments`) and automatically updates the studio queue. Toggling and deleting appointments issue persistent `PATCH` and `DELETE` requests so modifications survive browser reloads.
+## Stage 8: routing and detail page
+Three pages behind React Router: the list, a detail page at `/appointments/:id`,
+and an about page, plus a 404 page. Component styles moved to CSS Modules.
 
 ```bash
 npm run api # terminal 1, http://localhost:3001
@@ -39,6 +40,13 @@ npm run dev # terminal 2, http://localhost:5173
 - [x] Stage 5: local state and events
 - [x] Stage 6: data from a mock API
 - [x] Stage 7: form and validation
+- [x] Stage 8: routing and detail page
+- [ ] Stage 9: own backend with Express
+
+---
+
+## Stage 7: form and validation
+The application features a controlled form component (`AppointmentForm.jsx`) for booking new appointments with instant client-side validation. Creating a new appointment persists to the mock REST API (`POST /appointments`) and automatically updates the studio queue. Toggling and deleting appointments issue persistent `PATCH` and `DELETE` requests so modifications survive browser reloads.
 
 ---
 
@@ -92,9 +100,9 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 
 | Tool Utilized | Application Area |
 | :--- | :--- |
-| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6, and controlled form inputs with client-side validation, full REST API persistence (POST, PATCH, DELETE), and automated testid contracts in Stage 7. |
+| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6, controlled form inputs with client-side validation, full REST API persistence (POST, PATCH, DELETE), and automated testid contracts in Stage 7, and multi-page SPA routing with React Router (`Layout`, `Outlet`, `NavLink`, `useParams`), dynamic detail page, 404 route handling, and CSS Modules architecture in Stage 8. |
 
-*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, `ai-log/etapa-05.md`, `ai-log/etapa-06.md`, and `ai-log/etapa-07.md` files.*
+*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, `ai-log/etapa-05.md`, `ai-log/etapa-06.md`, `ai-log/etapa-07.md`, and `ai-log/etapa-08.md` files.*
 
 ---
 
@@ -107,8 +115,24 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 - [x] **Stage 5: local state and events**
 - [x] **Stage 6: data from a mock API**
 - [x] **Stage 7: form and validation**
+- [x] **Stage 8: routing and detail page**
 
-### Stage 7 Verification Table
+### Stage 8 Verification Table
+
+| ID | Requirement | Where | How to check |
+| :--- | :--- | :--- | :--- |
+| **S8-R1** | header navigation changes page without reload | `frontend/src/App.jsx#L10-L20`, `frontend/src/components/Layout.jsx#L33-L40` | click links, watch Network |
+| **S8-R2** | click on an item opens its detail page | `frontend/src/components/AppointmentCard.jsx#L56-L62`, `frontend/src/pages/AppointmentDetailPage.jsx` | click a title |
+| **S8-R3** | refresh on the detail URL works; missing id shows an error | `frontend/src/pages/AppointmentDetailPage.jsx#L18-L60` | refresh `/appointments/1`, open `/appointments/999` |
+| **S8-R4** | unknown URL shows the app 404 page | `frontend/src/App.jsx#L18` (`path="*"`), `frontend/src/pages/NotFoundPage.jsx` | open `/ceva` |
+| **S8-R5** | each component has its .module.css; index.css only shared styles | `frontend/src/components/`, `frontend/src/pages/`, `frontend/src/index.css` | read |
+| **S8-R6** | data-testid attributes from tables 7.3 and 8.2; detail route `/<resource>/:id` | `frontend/src/components/Layout.jsx`, `frontend/src/components/AppointmentCard.jsx`, `frontend/src/pages/AppointmentDetailPage.jsx`, `frontend/src/pages/NotFoundPage.jsx` | `querySelector` in the console |
+| **S8-R7** | README Stage 8 section + AI log | `README.md`, `ai-log/etapa-08.md` | read |
+| **S8-R8** | commit "Stage 8" pushed | Git commit history | `git log -1` |
+
+---
+
+### Stage 7 Verification Table (Historical Reference)
 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |
