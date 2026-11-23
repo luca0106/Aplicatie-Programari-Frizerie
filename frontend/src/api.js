@@ -9,7 +9,9 @@ async function request(path, options = {}) {
   });
 
   if (!res.ok) {
-    throw new Error(`Server error: ${res.status}`);
+    // Own Express API responds with { error: "..." }
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `Server error: ${res.status}`);
   }
 
   // 204 No Content has no body

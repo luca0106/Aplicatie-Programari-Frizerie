@@ -18,22 +18,39 @@ The application manages appointment entities. Each record consists of the follow
 | **Service Tag (`tag`)** | Text / Enum | Categorization tag: `Haircut`, `Beard`, `Combo`. |
 
 ### Initial Dataset
-The application uses the following dataset (stored in `frontend/db.json` and served via mock REST API):
-1. **Andrew Smith** - Pending session (`done: false`) - *Haircut & Beard Trim* (60 min) - Barber: *Nicholas Andrei* - Tag: `Combo`
-2. **Michael Johnson** - Completed session (`done: true`) - *Signature Haircut* (40 min) - Barber: *Madalin Plesa* - Tag: `Haircut`
-3. **Christian Davis** - Pending session (`done: false`) - *Beard Trim with Razor* (30 min) - Barber: *Nicholas Andrei* - Tag: `Beard`
-4. **Liam Walker** - Pending session (`done: false`) - *Royal Shave & Facial* (45 min) - Barber: *Madalin Plesa* - Tag: `Beard`
-5. **Daniel Brooks** - Completed session (`done: true`) - *Executive Haircut* (45 min) - Barber: *Nicholas Andrei* - Tag: `Haircut`
+The application uses an in-memory seed dataset served by the Express backend (`backend/src/routes/appointments.js`; Stage 10 moves persistence to MariaDB):
+1. **Alexander Pierce** - Upcoming (`done: false`) - *Haircut & Beard Trim* (60 min, 85 RON) - Tag: `Combo`
+2. **Marcus Vance** - Completed (`done: true`) - *Classic Haircut* (40 min, 60 RON) - Tag: `Haircut`
+3. **Julian Mercer** - Upcoming (`done: false`) - *Beard Trim with Razor* (30 min, 30 RON) - Tag: `Beard`
+4. **Daniel Sterling** - Upcoming (`done: false`) - *Medium Haircut (Fade)* (60 min, 75 RON) - Tag: `Haircut`
 
 ---
 
-## Stage 8: routing and detail page
-Three pages behind React Router: the list, a detail page at `/appointments/:id`,
-and an about page, plus a 404 page. Component styles moved to CSS Modules.
+## Stage 9: own backend
+`json-server` is gone. The API is an Express 5 server in `backend/`, with REST routes for `/appointments`, server-side whitelist validation (including studio working hours and 10-minute collision checks), centralized error handling, `/health` endpoint, and CORS configured for `http://localhost:5173`. Data is still kept in memory and resets on restart (Stage 10 moves it to MariaDB).
 
+## How to run
 ```bash
-npm run api # terminal 1, http://localhost:3001
-npm run dev # terminal 2, http://localhost:5173
+cd backend && npm install && npm run dev    # terminal 1, port 3001
+cd frontend && npm install && npm run dev   # terminal 2, port 5173
+```
+Then open `http://localhost:5173` in your browser.
+
+### Testing the API directly (`curl`)
+```bash
+curl -s -w ' -> %{http_code}\n' http://localhost:3001/health
+curl -s -w ' -> %{http_code}\n' http://localhost:3001/appointments
+curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/appointments \
+  -H "Content-Type: application/json" \
+  -d '{"clientName":"From curl","tag":"Combo"}'
+curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/appointments \
+  -H "Content-Type: application/json" \
+  -d '{"clientName":""}'
+curl -s -w ' -> %{http_code}\n' -X PATCH http://localhost:3001/appointments/5 \
+  -H "Content-Type: application/json" \
+  -d '{"done":true}'
+curl -s -w ' -> %{http_code}\n' http://localhost:3001/appointments/999
+curl -s -w ' -> %{http_code}\n' -X DELETE http://localhost:3001/appointments/5
 ```
 
 ## Status
@@ -41,7 +58,14 @@ npm run dev # terminal 2, http://localhost:5173
 - [x] Stage 6: data from a mock API
 - [x] Stage 7: form and validation
 - [x] Stage 8: routing and detail page
-- [ ] Stage 9: own backend with Express
+- [x] Stage 9: own backend with Express
+- [ ] Stage 10: MariaDB and full CRUD
+
+---
+
+## Stage 8: routing and detail page
+Three pages behind React Router: the list, a detail page at `/appointments/:id`,
+and an about page, plus a 404 page. Component styles moved to CSS Modules.
 
 ---
 
@@ -68,22 +92,9 @@ The list is rendered from the data, through two components:
 ---
 
 ## Stage 3: Vite and React project
-The app now lives in `frontend/`, built with Vite.
+The app lives in `frontend/`, built with Vite.
 
-## How to run
-To run the full stack (API + Frontend):
-```bash
-# Terminal 1: Mock REST API
-cd frontend
-npm run api
-
-# Terminal 2: Vite React Frontend
-cd frontend
-npm run dev
-```
-Then open the address printed in the terminal (http://localhost:5173).
-
-To build for production:
+To build the frontend for production:
 ```bash
 cd frontend
 npm run build
@@ -100,9 +111,9 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 
 | Tool Utilized | Application Area |
 | :--- | :--- |
-| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6, controlled form inputs with client-side validation, full REST API persistence (POST, PATCH, DELETE), and automated testid contracts in Stage 7, and multi-page SPA routing with React Router (`Layout`, `Outlet`, `NavLink`, `useParams`), dynamic detail page, 404 route handling, and CSS Modules architecture in Stage 8. |
+| **Google Gemini** | Assisted in architecting CSS Grid and Flexbox responsive dashboard layout for Stage 1, pure JavaScript data logic and algorithms for Stage 2, Vite + React scaffolding in Stage 3, component-based UI rendering with props and conditional states in Stage 4, local state management with immutable updates and CSS theme switching in Stage 5, mock REST API integration with json-server, useEffect data loading, and loading/error states handling in Stage 6, controlled form inputs with client-side validation, full REST API persistence (POST, PATCH, DELETE), and automated testid contracts in Stage 7, multi-page SPA routing with React Router (`Layout`, `Outlet`, `NavLink`, `useParams`), dynamic detail page, 404 route handling, and CSS Modules architecture in Stage 8, and custom Node.js + Express 5 REST backend (`backend/`), server-side whitelist & schedule validation, CORS configuration, centralized error handling, and `json-server` removal in Stage 9. |
 
-*For comprehensive transcripts and prompting details, please refer to the `ai-log/etapa-01.md`, `ai-log/etapa-02.md`, `ai-log/etapa-03.md`, `ai-log/etapa-04.md`, `ai-log/etapa-05.md`, `ai-log/etapa-06.md`, `ai-log/etapa-07.md`, and `ai-log/etapa-08.md` files.*
+*For comprehensive transcripts and prompting details, please refer to `ai-log/etapa-01.md` through `ai-log/etapa-09.md`.*
 
 ---
 
@@ -116,8 +127,24 @@ The vanilla HTML/CSS/JS mockups and initial implementation from previous stages 
 - [x] **Stage 6: data from a mock API**
 - [x] **Stage 7: form and validation**
 - [x] **Stage 8: routing and detail page**
+- [x] **Stage 9: own backend with Express**
+- [ ] **Stage 10: MariaDB and full CRUD**
 
-### Stage 8 Verification Table
+### Stage 9 Verification Table
+
+| ID | Requirement | Where | How to check |
+| :--- | :--- | :--- | :--- |
+| **S9-R1** | `npm run dev` in `backend/` starts the API on 3001 | `backend/package.json#L6-L10`, `backend/src/server.js#L1-L7` | run `npm run dev` in `backend/`, open `http://localhost:3001/health` |
+| **S9-R2** | all five routes answer with the right codes | `backend/src/routes/appointments.js#L80-L142` | run the `curl` commands from README (`200, 201, 200, 200, 204, 404`) |
+| **S9-R3** | invalid data returns 400 with a clear message | `backend/src/validation.js#L64-L246` | `POST /appointments` with `{}` and `{"clientName":""}` |
+| **S9-R4** | React app works with `json-server` removed | `frontend/package.json`, `frontend/src/api.js#L11-L15` | stop everything except Express backend + Vite, verify CRUD and server error display |
+| **S9-R5** | no CORS errors in the browser console | `backend/src/app.js#L8` | inspect `Access-Control-Allow-Origin: http://localhost:5173` and browser console |
+| **S9-R6** | README Stage 9 section + AI log | `README.md`, `ai-log/etapa-09.md` | read files in repository |
+| **S9-R7** | commit "Stage 9" pushed | Git commit history | `git log -1` |
+
+---
+
+### Stage 8 Verification Table (Historical Reference)
 
 | ID | Requirement | Where | How to check |
 | :--- | :--- | :--- | :--- |

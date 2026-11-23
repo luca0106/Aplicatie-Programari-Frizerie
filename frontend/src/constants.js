@@ -14,7 +14,7 @@ export const ETICHETE_TAG = Object.fromEntries(
 export const PRIORITATI = TAGS;
 export const ETICHETE_PRIORITATE = ETICHETE_TAG;
 
-// Complete Studio Service Catalog in English with fixed lowest prices and exact durations
+// Complete Studio Service Catalog with fixed prices and exact durations
 export const SERVICES_CATALOG = [
   {
     id: "Haircut",

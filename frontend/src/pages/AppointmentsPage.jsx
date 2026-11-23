@@ -111,8 +111,8 @@ export default function AppointmentsPage() {
 
           {error && (
             <p className="error" data-testid="error">
-              Failed to communicate with server: {error}. Is the server running? Run{" "}
-              <code>npm run api</code> in a terminal.
+              Failed to communicate with server: {error}. Is the backend running? Run{" "}
+              <code>npm run dev</code> in <code>backend/</code>.
             </p>
           )}
 
